@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <declare-styleable name="dragcontainer">
+
+        <attr name="drag_left" format="boolean"/>
+        <attr name="drag_top" format="boolean"/>
+        <attr name="drag_right" format="boolean"/>
+        <attr name="drag_bottom" format="boolean"/>
+        <attr name="drag_direction" format="enum">
+
+            <enum name="left" value="0"/>
+            <enum name="top" value="1"/>
+            <enum name="right" value="2"/>
+            <enum name="bottom" value="3"/>
+
+        </attr>
+
+
+    </declare-styleable>
+
+</resources>

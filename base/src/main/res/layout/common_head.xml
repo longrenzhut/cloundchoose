@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        android:id="@+id/iv_left"
+        android:layout_width="@dimen/dp_38"
+        android:layout_height="@dimen/dp_13"
+        android:layout_centerVertical="true"
+        android:paddingLeft="@dimen/dp_15"
+        android:paddingRight="@dimen/dp_15"
+        android:visibility="gone"
+        android:layout_marginBottom="1dp"
+        android:scaleType="fitCenter"/>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textColor="@color/black"
+        android:layout_marginBottom="1dp"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:maxWidth="250dp"
+        android:textSize="@dimen/text_sp_16"/>
+
+
+    <ImageView
+        android:id="@+id/iv_right"
+        android:layout_alignParentRight="true"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        style="@style/common_click"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="1dp"
+        android:paddingLeft="@dimen/dp_15"
+        android:paddingRight="@dimen/dp_15"
+        android:scaleType="fitCenter"/>
+
+    <TextView
+        android:id="@+id/tv_right"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/text_sp_14"
+        android:layout_alignParentRight="true"
+        android:visibility="gone"
+        android:layout_marginRight="@dimen/dp_15"
+        android:layout_centerVertical="true"
+        android:textColor="@color/cl_333333"/>
+
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="@dimen/dp_15"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:background="@color/cl_f0f0f0"/>
+
+</merge>

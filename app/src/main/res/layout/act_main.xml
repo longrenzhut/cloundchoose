@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.haiqi.base.common.UIRLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@+id/uiheader"
+        android:layout_height="match_parent">
+
+        <com.haiqi.base.widget.shape.ShapeView
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_30"
+            app:sv_radius="@dimen/dp_15"
+            app:sv_top_left="true"
+            app:sv_top_right="true"
+            app:sv_soild_color="@color/black"/>
+
+        <TextView
+            android:id="@+id/tv_input"
+            style="@style/common_click"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50" />
+
+        <com.haiqi.base.widget.imageview.GlideImageView
+            android:layout_width="@dimen/dp_40"
+            android:layout_marginTop="@dimen/dp_5"
+            app:sv_soild_color="#ff0000"
+            app:sv_radius="@dimen/dp_5"
+            app:sv_stoke_color="#00ff00"
+            app:sv_stoke_width="@dimen/dp_2"
+            android:layout_height="@dimen/dp_40"/>
+
+        <ImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40" />
+
+        <com.haiqi.base.widget.imageview.GlideImageView
+            android:id="@+id/glide_test"
+            android:layout_width="@dimen/dp_80"
+            android:layout_marginTop="@dimen/dp_5"
+            app:sv_radius="@dimen/dp_40"
+            app:sv_soild_color="#00ff00"
+            app:sv_stoke_color="#ff0000"
+            app:sv_stoke_width="@dimen/dp_2"
+            android:layout_height="@dimen/dp_80"/>
+
+        <com.haiqi.base.widget.imageview.GlideImageView
+            android:id="@+id/glide_s"
+            android:layout_width="@dimen/dp_80"
+            android:layout_marginTop="@dimen/dp_5"
+            app:sv_radius="@dimen/dp_8"
+            app:sv_soild_color="#00ff00"
+            app:sv_stoke_color="#ff0000"
+            app:sv_stoke_width="@dimen/dp_2"
+            android:layout_height="@dimen/dp_80"/>
+
+        <com.haiqi.base.widget.shape.TriangleView
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_40"
+            app:tri_soild="#ff0000"
+            />
+
+        <com.haiqi.base.widget.shape.TriangleView
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_40"
+            app:tri_soild="#ff0000"
+            app:tri_stroke_color="#00ff00"
+            app:tri_stroke_width= "@dimen/dp_1"
+            app:tri_direction="left"
+            />
+
+        <com.haiqi.base.widget.shape.TriangleView
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_40"
+            app:tri_soild="#ff0000"
+            app:tri_stroke_color="#00ff00"
+            app:tri_direction="left"
+            />
+
+    </LinearLayout>
+</com.haiqi.base.common.UIRLayout>

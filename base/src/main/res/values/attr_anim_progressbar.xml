@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="animprogressbar">
+
+        <attr name="anim_radius" format="dimension"/>
+        <attr name="anim_bg_color" format="color|reference"/>
+        <attr name="anim_pre_color" format="color|reference"/>
+        <attr name="anim_duration" format="integer"/>
+
+    </declare-styleable>
+
+</resources>

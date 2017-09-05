@@ -1,0 +1,40 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+
+
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+
+       <!-- <item name="android:statusBarColor" tools:targetApi="21">@color/white</item>-->
+        // 去掉系统状态栏下的windowContentOverlay
+        <item name="android:windowContentOverlay">@null</item>
+
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+
+        <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@color/white</item>
+        <!--<item name="android:listDivider">@drawable/shape_divider</item>-->
+        <item name="android:windowSoftInputMode">adjustPan|stateAlwaysHidden</item>
+        <item name="android:screenOrientation">portrait</item>
+        <item name="android:windowAnimationStyle">@style/BaseSlideAnimation</item>
+
+        <item name="android:indeterminateTint" tools:targetApi="21">@color/cl_ff5151</item>
+        <item name="android:indeterminateTintMode" tools:targetApi="21">src_atop</item>
+
+        <!--5.0以上系统满屏-->
+        <item name="android:windowTranslucentStatus" tools:targetApi="21">true</item>
+
+    </style>
+
+    <style name="AppTheme" parent="AppTheme.Base"></style>
+
+
+    <!--统一的点击效果-->
+    <style name="common_click">
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+    </style>
+
+
+</resources>

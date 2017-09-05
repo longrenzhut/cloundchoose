@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="shapeview">
+
+        <attr name="sv_radius" format="dimension"/>
+        <attr name="sv_stoke_color" format="reference|color"/>
+        <attr name="sv_stoke_width" format="dimension"/>
+        <attr name="sv_soild_color" format="reference|color"/>
+        <attr name="sv_top_left" format="boolean"/>
+        <attr name="sv_top_right" format="boolean"/>
+        <attr name="sv_bottom_left" format="boolean"/>
+        <attr name="sv_bottom_right" format="boolean"/>
+
+
+
+    </declare-styleable>
+
+</resources>

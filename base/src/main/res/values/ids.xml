@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="uilayout" />
+    <item type="id" name="uiheader" />
+    <item type="id" name="statusbar" />
+    <item type="id" name="root" />
+
+</resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="tabmylayout">
+
+        <attr name="tab_line_stroke" format="dimension"/>
+        <attr name="tab_line_color" format="reference|color"/>
+        <attr name="tab_line_width" format="dimension"/>
+        <attr name="tab_color" format="reference|color"/>
+        <attr name="tab_selected_color" format="reference|color"/>
+        <attr name="tab_textsize" format="dimension"/>
+        <attr name="tab_style" format="boolean"/>
+        <attr name="tab_padding" format="dimension"/>
+
+    </declare-styleable>
+
+
+</resources>

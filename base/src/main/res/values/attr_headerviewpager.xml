@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="headervp">
+        <attr name="hvp_topOffset" format="dimension"/>
+        <attr name="hvp_isAdd" format="boolean"/>
+        <attr name="hvp_isVerScroll" format="boolean"/>
+    </declare-styleable>
+</resources>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+
+
+    <style name="CommonDialogTheme" parent="@style/AppTheme">
+        <item name="android:windowTranslucentStatus" tools:targetApi="21">true</item>
+        <item name="android:windowBackground">@color/transparent</item>
+    </style>
+
+
+
+    <!--diaolog从底部弹出 从底部退出-->
+    <style name="EnterBottomExitBottomDialogTheme" parent="@style/CommonDialogTheme">
+
+        <item name="android:windowAnimationStyle">@style/Anim_Enter_Bottom_Exit_Bottom</item>
+
+    </style>
+
+
+    <!--diaolog从底部弹出 从底部退出-->
+    <style name="Anim_Enter_Bottom_Exit_Bottom">
+        <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
+    </style>
+
+
+</resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <declare-styleable name="triangleView">
+
+        <attr name="tri_stroke_color" format="reference|color"/>
+        <attr name="tri_stroke_width" format="dimension"/>
+        <attr name="tri_soild" format="reference|color"/>
+        <attr name="tri_direction" format="enum">
+            <enum name="left" value="0"/>
+            <enum name="top" value="1"/>
+            <enum name="right" value="2"/>
+            <enum name="bottom" value="3"/>
+        </attr>
+
+    </declare-styleable>
+
+</resources>
