@@ -29,7 +29,7 @@ class TestAct: DelegateAct(){
 
         tab_test.setViewPage(vp_test)
 
-        tab_test_1.setViewPage(vp_test)
+        tab_test_1?.setViewPage(vp_test)
 
         apb_test.setProgress(100,20)
         apb_test_1.setProgress(100,60)

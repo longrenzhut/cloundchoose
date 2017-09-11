@@ -3,6 +3,7 @@ package com.haiqi.yx
 import com.alibaba.android.arouter.launcher.ARouter
 import com.haiqi.base.Config
 import com.haiqi.base.common.application.BaseApp
+import com.haiqi.base.rx.rxdb.DBManager
 
 
 /**
@@ -18,6 +19,7 @@ class YxApp: BaseApp(){
             ARouter.openDebug()
         }
         ARouter.init(this)
+        DBManager.get().init(this)
     }
 
 }

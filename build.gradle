@@ -12,12 +12,17 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
+        //sqllite
+//        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2' // add plugin
     }
 }
 
 allprojects {
     repositories {
         jcenter()
+        //sqllite
+//        mavenCentral()
 //        maven { url "https://jitpack.io" }
     }
 }

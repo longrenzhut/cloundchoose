@@ -2,12 +2,20 @@ package com.haiqi.yx.entry
 
 import com.alibaba.android.arouter.launcher.ARouter
 import com.haiqi.base.common.activity.BaseAct
+import com.haiqi.base.rx.rxdb.DBManager
 import com.haiqi.base.rx.rxbinding.RxClick
 import com.haiqi.base.utils.glide.GlideHelper
 import com.haiqi.yx.R.layout.act_main
 import com.haiqi.yx.entry.presenter.IMain
 import com.haiqi.yx.entry.presenter.MainPt
 import kotlinx.android.synthetic.main.act_main.*
+import com.haiqi.base.rx.rxdb.RxSqlQueryHelper
+import com.haiqi.base.utils.showToast
+import com.haiqi.yx.entry.db.AddrModel
+import com.haiqi.yx.entry.db.ProviceImpl
+import io.reactivex.Observable
+import io.reactivex.Observer
+import io.reactivex.disposables.Disposable
 
 
 /**
@@ -41,6 +49,7 @@ class MainAct: BaseAct<MainPt, IMain>(), IMain {
 //
 //        }).subscribe {  }
         tv_input.RxClick(this){
+
             ARouter.getInstance().build("/tent/sss").navigation(this)
 //            Router(this@MainAct).go<TestAct>()
         }
@@ -48,9 +57,30 @@ class MainAct: BaseAct<MainPt, IMain>(), IMain {
         GlideHelper.instance().load(iv_icon,url,40,40)
         glide_test.setUrl(url)
         glide_s.setUrl(url)
-//        Observable.
-//        RxTextView.textChanges(usernameEditText);
-//        RxTextView.textChanges()
+
+        DBManager.get().init(this)
+
+        val observer =  object : Observer<List<AddrModel>> {
+            override fun onComplete() {
+            }
+
+            override fun onNext(t: List<AddrModel>) {
+                showToast("fsdf")
+            }
+
+            override fun onSubscribe(d: Disposable) {
+            }
+
+            override fun onError(e: Throwable) {
+            }
+
+        }
+
+        Observable.create(RxSqlQueryHelper(ProviceImpl()))
+                .subscribe(observer)
+
+//        observable.subscribe(observer)
+
     }
 
 

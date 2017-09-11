@@ -1,6 +1,7 @@
 package com.haiqi.base.http
 
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.haiqi.base.common.UILoadLayout
 import com.haiqi.base.utils.showToast
 import com.haiqi.base.widget.dialog.LoadingDialog
@@ -53,7 +54,7 @@ abstract class ReqCallBack<T>: IReqCallBack<T>{
             //以下代码是通过泛型解析实际参数,泛型必须传
             val genType = javaClass.getGenericSuperclass();
             val params = (genType as ParameterizedType).getActualTypeArguments();
-            modelType = params[0];
+            modelType = params[0]
         }
         if(modelType == null){
             showToast("模型没有序列化")

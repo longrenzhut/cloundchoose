@@ -17,12 +17,13 @@ class Cache(val name: String="clear"){
         mutableMapOf<String,String>()
     }
 
-    fun putInt(key: String,value:Int = 1){
-        put(key,value.toString())
-    }
 
-    fun put(key: String,value:String = "1"){
-        val newValue = cacheMap.get(key)
+    /**
+     * 设置值
+     */
+    fun put(key: String,value:String = ""){
+        val newValue = cacheMap[key]
+
         newValue?.let{
             if(newValue == value)
                 return
@@ -30,28 +31,38 @@ class Cache(val name: String="clear"){
         cache.edit().putString(key,value).commit()
     }
 
-    fun getString(key: String): String{
-        val newValue = cacheMap.get(key)
+    fun getString(key: String,defalut: String = ""): String{
+        val newValue = cacheMap[key]
         newValue?.let{
             return newValue
         }
+        if(!cache.contains(key)){
+            return defalut
+        }
+
         val value = cache.getString(key,"")
         cacheMap.put(key,value)
         return value
     }
 
-    fun getInt(key: String): Int{
+
+    fun putInt(key: String,value: Int = 0){
+        put(key,value.toString())
+    }
+
+    fun getInt(key: String,defalut: Int): Int{
         return getString(key).toInt()
     }
 
     fun clear(){
         cacheMap.clear()
-        cache.edit().clear().commit()
+        cache.edit().clear().apply()
     }
+
 
     fun remove(key: String){
         cacheMap.remove(key)
-        cache.edit().remove(key).commit()
+        cache.edit().remove(key).apply()
     }
 
     fun <T> putModel(key: String, model: T) {

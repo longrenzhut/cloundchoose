@@ -1,6 +1,8 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+//sqlite
+//apply plugin: 'org.greenrobot.greendao' // apply plugin
 
 
 
@@ -77,6 +79,8 @@ dependencies {
 //    annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0-RC0'
     //Logger库
     compile 'com.orhanobut:logger:2.1.1'
-
-
+    //Rx存储
+    compile 'com.f2prateek.rx.preferences2:rx-preferences:2.0.0-RC3'
+    //sqllite
+//    compile 'org.greenrobot:greendao:3.2.2' // add library
 }

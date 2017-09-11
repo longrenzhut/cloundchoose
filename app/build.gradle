@@ -35,4 +35,6 @@ dependencies {
     compile 'jp.wasabeef:recyclerview-animators:2.2.0'
     compile project(':wechatsdk')
     compile project(':tencentsdk')
+
+    compile 'top.zibin:Luban:1.1.3'
 }
