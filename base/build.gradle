@@ -83,4 +83,7 @@ dependencies {
     compile 'com.f2prateek.rx.preferences2:rx-preferences:2.0.0-RC3'
     //sqllite
 //    compile 'org.greenrobot:greendao:3.2.2' // add library
+
+    //AndPermission 兼容android6.0权限问题
+    compile 'com.yanzhenjie:permission:1.1.0'
 }

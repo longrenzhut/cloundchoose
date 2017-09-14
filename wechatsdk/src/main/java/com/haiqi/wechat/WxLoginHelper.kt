@@ -4,7 +4,7 @@ import android.app.Activity
 import com.haiqi.base.http.HttpProvider
 import com.haiqi.base.http.ReqCallBack
 import com.haiqi.base.http.ReqSubscriber
-import com.haiqi.base.rx.rxbinding.ObservableSet
+import com.haiqi.base.utils.ObservableSet
 import com.haiqi.base.utils.showToast
 import com.haiqi.wechat.service.WxService
 import com.tencent.mm.opensdk.modelmsg.SendAuth

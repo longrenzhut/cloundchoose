@@ -1,7 +1,7 @@
 package com.haiqi.yx.entry.db
 
 import android.database.Cursor
-import com.haiqi.base.rx.rxdb.ICurDeal
+import com.haiqi.base.rx.rxsql.ICurDeal
 
 /**
  * Created by Administrator on 2017/9/11.

@@ -5,6 +5,7 @@ package com.haiqi.base.rx.rxbinding
  */
 import android.view.View
 import com.haiqi.base.common.activity.AbsAct
+import com.haiqi.base.utils.ObservableSet
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -81,11 +82,6 @@ RxCompoundButton.checkedChanges(checkBox2)
 });*/
 
 
- fun <T> Observable<T>.ObservableSet(): Observable<T>{
-    subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-    return this
-}
 
 inline fun View?.RxClick(act: AbsAct, crossinline onNext:()-> Unit){
     this?.let{

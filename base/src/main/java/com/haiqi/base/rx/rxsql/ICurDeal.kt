@@ -1,4 +1,4 @@
-package com.haiqi.base.rx.rxdb
+package com.haiqi.base.rx.rxsql
 
 import android.database.Cursor
 

@@ -11,6 +11,9 @@ import android.widget.TextView
 import android.widget.Toast
 import com.haiqi.base.R
 import com.haiqi.base.common.application.BaseApp
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import org.jetbrains.anko.find
 import java.text.DecimalFormat
 
@@ -24,6 +27,12 @@ fun getResources(): Resources {
 
 fun getContext(): BaseApp{
     return BaseApp.getApp()
+}
+
+fun <T> Observable<T>.ObservableSet(): Observable<T> {
+    subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    return this
 }
 
 @Throws(NoSuchFieldException::class, IllegalAccessException::class)
