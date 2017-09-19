@@ -15,6 +15,7 @@ import in.srain.cube.views.ptr.PtrUIHandler;
 import in.srain.cube.views.ptr.PtrUIHandlerHook;
 import in.srain.cube.views.ptr.header.MaterialProgressDrawable;
 import in.srain.cube.views.ptr.indicator.PtrIndicator;
+import in.srain.cube.views.ptr.util.PtrLocalDisplay;
 
 /**
  * Created by Administrator on 2017/8/2.
@@ -103,7 +104,7 @@ public class MaterialHeader extends View implements PtrUIHandler {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int height = mDrawable.getIntrinsicHeight() + getPaddingTop() + getPaddingBottom()
-                + 20;
+                +  PtrLocalDisplay.dp2px(12);
         heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
@@ -119,7 +120,7 @@ public class MaterialHeader extends View implements PtrUIHandler {
         final int saveCount = canvas.save();
         Rect rect = mDrawable.getBounds();
         int l = getPaddingLeft() + (getMeasuredWidth() - mDrawable.getIntrinsicWidth()) / 2;
-        canvas.translate(l, getPaddingTop());
+        canvas.translate(l, getPaddingTop() + PtrLocalDisplay.dp2px(6));
         canvas.scale(mScale, mScale, rect.exactCenterX(), rect.exactCenterY());
         mDrawable.draw(canvas);
         canvas.restoreToCount(saveCount);
