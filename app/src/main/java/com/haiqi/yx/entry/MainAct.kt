@@ -22,14 +22,13 @@ import io.reactivex.Observable
 import android.content.DialogInterface
 import android.content.Intent
 import android.support.v7.app.AlertDialog
+import com.haiqi.base.utils.Mylogger
 import com.haiqi.base.utils.permission.PermissionHelper
+import com.haiqi.yx.entry.model.TestModel
 import com.yanzhenjie.permission.PermissionNo
 import com.yanzhenjie.permission.PermissionYes
 import com.yanzhenjie.permission.PermissionListener
-
-
-
-
+import java.util.concurrent.TimeUnit
 
 
 /**
@@ -87,13 +86,21 @@ class MainAct: BaseAct<MainPt, IMain>(), IMain {
         glide_test.setUrl(url)
 //        glide_s.setUrl(url)
 
-
+//        val testmodel = Class.forName("com.haiqi.yx.entry.model.TestModel")
+//        val textMol = testmodel.newInstance()
+//        textMol.test()
         val dpath = Environment.getExternalStorageDirectory().toString() + "/highup/"
         DBManager.get().setPath(dpath)
         RxSql.execute(this,RxSqlQueryHelper(ProviceImpl()).setOpen(true)){
             showToast("我收到了")
             glide_s.setUrl(url)
         }
+//        Observable.interval(100, TimeUnit.MILLISECONDS)
+//                .subscribe {
+//                    var i = 0
+//                    i++
+//                    Mylogger.d("" + i)
+//                }
 //        Observable.create(RxSqlQueryHelper(ProviceImpl()).setOpen(true))
 //                .subscribe({},{},{
 //                    showToast("我收到了")

@@ -14,13 +14,18 @@ import com.haiqi.base.Config
 import com.haiqi.base.R
 import com.haiqi.base.http.*
 import com.haiqi.base.rx.rxbus.RxBus2
+import com.haiqi.base.rx.rxbus.RxMessage
+import com.haiqi.base.rx.rxlifecycle.RxAppCompatActivity
 import com.haiqi.base.thirdsdk.statusbar.StatusBarCompat
 import com.haiqi.base.utils.Mylogger
 import com.haiqi.base.utils.getActColor
+import com.trello.rxlifecycle2.LifecycleTransformer
+import com.trello.rxlifecycle2.android.ActivityEvent
 import com.umeng.analytics.MobclickAgent
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import okhttp3.ResponseBody
 
 /**
  * Created by zhutao on 2017/8/2.
@@ -28,7 +33,7 @@ import io.reactivex.schedulers.Schedulers
  * activity 第一层封装（基础层）。生命周期的打印、观察，
  * 触屏收缩键盘， 沉浸式标题栏
  */
-open class AbsAct: AppCompatActivity(){
+open class AbsAct: RxAppCompatActivity(){
 
     val mLifeCycle by lazy(LazyThreadSafetyMode.NONE){
         LifeCycle()
@@ -37,7 +42,7 @@ open class AbsAct: AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mLifeCycle.OnCreate(this)
-        log("onCreate()");
+        log("onCreate()")
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -46,21 +51,21 @@ open class AbsAct: AppCompatActivity(){
     }
 
     override fun onStart() {
-        super.onStart();
+        super.onStart()
         mLifeCycle.onStart()
-        log("onStart()");
+        log("onStart()")
     }
 
     override fun onRestart() {
-        super.onRestart();
+        super.onRestart()
         mLifeCycle.onRestart()
-        log("onRestart()");
+        log("onRestart()")
     }
 
     override fun onResume() {
         super.onResume()
         mLifeCycle.onResume()
-        log("onResume()");
+        log("onResume()")
         if(Config.DEBUG)
             return
         val name = javaClass.name
@@ -71,7 +76,7 @@ open class AbsAct: AppCompatActivity(){
     override fun onPause() {
         super.onPause()
         mLifeCycle.onPause()
-        log("onPause()");
+        log("onPause()")
         if(Config.DEBUG)
             return
         val name = javaClass.name
@@ -81,16 +86,15 @@ open class AbsAct: AppCompatActivity(){
 
     override fun onStop() {
         mLifeCycle.onStop()
-        super.onStop();
-        log("onStop()");
+        super.onStop()
+        log("onStop()")
     }
 
 
     override fun onDestroy() {
         mLifeCycle.OnDestroy()
-        mDisposable.clear()
-        super.onDestroy();
-        log("onDestroy()");
+        super.onDestroy()
+        log("onDestroy()")
     }
 
 
@@ -157,23 +161,21 @@ open class AbsAct: AppCompatActivity(){
     //-------------------------封装统一的网络请求
 
 
-    val mDisposable by lazy(LazyThreadSafetyMode.NONE){
-        CompositeDisposable()
-    }
 
     /**
      * url 请求的叠纸
      * mParams 参数
      */
-    open fun <T> setRequest(url: String, mParams: Params, req: ReqCallBack<T>){
+     fun <T> setRequestBase(url: String, mParams: Params,
+                            req: ReqCallBack<T>,
+                            compose: LifecycleTransformer<ResponseBody>){
         HttpProvider.getHttpProvider()
                 .createService<BaseService>()
                 .post(url,mParams.getParams())
+                .compose(compose)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(ReqSubscriber(req){
-                    mDisposable.add(it)
-                })
+                .subscribe(ReqSubscriber(req))
     }
 
     //----------通信--------------
@@ -181,13 +183,18 @@ open class AbsAct: AppCompatActivity(){
     /**
      * 先注册 订阅
      */
-    fun <T> registerRxBus(code: Int,obtainMsg: (T)-> Unit){
-        mDisposable.add(RxBus2.instance().toFlowable(code)
+    fun <T> registerRxBus(code: Int,obtainMsg: (T)-> Unit,
+                          compose: LifecycleTransformer<RxMessage>){
+        RxBus2.instance().toFlowable(code)
+                .compose(compose)
                 .subscribe {
                     obtainMsg(it.msg as T)
                 }
-        )
     }
+    fun <T> registerRxBus(code: Int,obtainMsg: (T)-> Unit){
+        registerRxBus(code,obtainMsg,bindUntilEvent(ActivityEvent.DESTROY))
+    }
+
 
     fun post(code: Int,any: Any){
         RxBus2.instance().post(code,any)
@@ -197,7 +204,7 @@ open class AbsAct: AppCompatActivity(){
 //        super.onActivityResult(requestCode, resultCode, data)
         val fras = supportFragmentManager.fragments
         fras?.let{
-            for(fra in fras)
+            for(fra in it)
                 fra.onActivityResult(requestCode,resultCode,data)
         }
     }

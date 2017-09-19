@@ -3,6 +3,7 @@ package com.haiqi.yx.entry
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
+import io.reactivex.Observable
 
 /**
  * Created by Administrator on 2017/9/13.
@@ -15,6 +16,7 @@ class Test : View{
     init{
         val st = 12
         val s = st.toString()
+
     }
 
 }

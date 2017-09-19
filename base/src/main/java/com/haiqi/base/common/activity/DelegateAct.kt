@@ -8,6 +8,9 @@ import com.haiqi.base.http.ReqCallBack
 import com.haiqi.base.common.listener.ICommonLayout
 import com.haiqi.base.widget.dialog.LoadingDialog
 import com.ssdf.highup.base.interf.IBaseUi
+import com.trello.rxlifecycle2.LifecycleTransformer
+import com.trello.rxlifecycle2.android.ActivityEvent
+import okhttp3.ResponseBody
 import org.jetbrains.anko.find
 
 /**
@@ -153,7 +156,10 @@ abstract class DelegateAct: AbsAct(),IBaseUi{
      * url 请求的叠纸
      * mParams 参数
      */
-    override fun <T> setRequest(url: String, mParams: Params, req: ReqCallBack<T>){
+    fun <T> setRequest(url: String, mParams: Params,
+                               req: ReqCallBack<T>,
+                       compose: LifecycleTransformer<ResponseBody>
+                         = bindUntilEvent(ActivityEvent.DESTROY)){
 
         mLoadingDialog?.let {
             req.setLoading(it)
@@ -161,7 +167,7 @@ abstract class DelegateAct: AbsAct(),IBaseUi{
         mUiLayout.getUILoadLayout()?.let {
             req.setUILayout(it)
         }
-        super.setRequest(url,mParams,req)
+        super.setRequestBase(url,mParams,req, compose)
     }
 
 

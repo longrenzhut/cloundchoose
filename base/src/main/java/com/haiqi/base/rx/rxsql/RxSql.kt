@@ -2,6 +2,7 @@ package com.haiqi.base.rx.rxsql
 
 import com.haiqi.base.common.activity.AbsAct
 import com.haiqi.base.utils.ObservableSet
+import com.trello.rxlifecycle2.android.ActivityEvent
 import io.reactivex.Observable
 import io.reactivex.ObservableOnSubscribe
 
@@ -14,18 +15,20 @@ object RxSql{
                     ,result: ((T) -> Unit),onComplete:(() -> Unit)){
         Observable.create(source)
                 .ObservableSet()
+                .compose(act.bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(result,{},
                         { onComplete},
-                        {act.mDisposable.add(it)})
+                        {})
     }
 
     fun <T> execute(act: AbsAct,source: ObservableOnSubscribe<T>
                     ,result: ((T) -> Unit)){
         Observable.create(source)
                 .ObservableSet()
+                .compose(act.bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(result,{},
                         { },
-                        {act.mDisposable.add(it)})
+                        {})
     }
 
 }

@@ -2,6 +2,7 @@ package com.haiqi.yx.entry.model
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.haiqi.base.utils.showToast
 
 /**
  * Created by Administrator on 2017/9/1.
@@ -26,6 +27,6 @@ class TestModel(val test: Int) : Parcelable {
     }
 
     fun test(){
-
+        showToast("成功了")
     }
 }

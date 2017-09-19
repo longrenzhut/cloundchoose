@@ -4,8 +4,12 @@ package com.haiqi.base.rx.rxbinding
  * Created by Administrator on 2017/8/10.
  */
 import android.view.View
+import android.widget.TextView
 import com.haiqi.base.common.activity.AbsAct
+import com.haiqi.base.common.fragment.DelegateFra
 import com.haiqi.base.utils.ObservableSet
+import com.trello.rxlifecycle2.android.ActivityEvent
+import com.trello.rxlifecycle2.android.FragmentEvent
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -85,13 +89,42 @@ RxCompoundButton.checkedChanges(checkBox2)
 
 inline fun View?.RxClick(act: AbsAct, crossinline onNext:()-> Unit){
     this?.let{
-        val disposable =  Observable.create(ViewClickOnSubscribe(it))
+        Observable.create(ViewClickOnSubscribe(it))
                 .ObservableSet()
+                .compose(act.bindUntilEvent<Int>(ActivityEvent.DESTROY))
                 .throttleFirst(500, TimeUnit.MILLISECONDS)
                 .subscribe{
                     onNext()
                 }
-        act.mDisposable.add(disposable)
     }
 }
+
+inline fun View?.RxClick(fra: DelegateFra, crossinline onNext:()-> Unit){
+    this?.let{
+        Observable.create(ViewClickOnSubscribe(it))
+                .ObservableSet()
+                .compose(fra.bindUntilEvent<Int>(FragmentEvent.DESTROY))
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe{
+                    onNext()
+                }
+    }
+}
+
+inline fun TextView?.RxTextChange(ui: Any, crossinline onNext:()-> Unit){
+    this?.let{
+        Observable.create(TextChangeOnSubscribe(it))
+                .ObservableSet()
+                .compose(
+                        if(ui is AbsAct)
+                            ui.bindUntilEvent<String>(ActivityEvent.DESTROY)
+                        else
+                            (ui as DelegateFra).bindUntilEvent<String>(FragmentEvent.DESTROY))
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe{
+                    onNext()
+                }
+    }
+}
+
 

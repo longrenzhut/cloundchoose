@@ -52,8 +52,8 @@ abstract class ReqCallBack<T>: IReqCallBack<T>{
     fun OnNext(str: String) {
         if (modelType == null) {
             //以下代码是通过泛型解析实际参数,泛型必须传
-            val genType = javaClass.getGenericSuperclass();
-            val params = (genType as ParameterizedType).getActualTypeArguments();
+            val genType = javaClass.genericSuperclass
+            val params = (genType as ParameterizedType).actualTypeArguments
             modelType = params[0]
         }
         if(modelType == null){

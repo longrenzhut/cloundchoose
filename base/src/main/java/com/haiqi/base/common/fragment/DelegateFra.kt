@@ -11,14 +11,17 @@ import com.haiqi.base.common.activity.DelegateAct
 import com.haiqi.base.common.listener.ICommonLayout
 import com.haiqi.base.http.Params
 import com.haiqi.base.http.ReqCallBack
+import com.haiqi.base.rx.rxlifecycle.RxFragment
 import com.ssdf.highup.base.interf.IBaseUi
+import com.trello.rxlifecycle2.android.ActivityEvent
+import com.trello.rxlifecycle2.android.FragmentEvent
 import org.jetbrains.anko.find
 
 /**
  * Created by zhutao on 2017/8/2.
  *  第一层封装fragment 统一的头部 加载动画
  */
-abstract class DelegateFra : Fragment(),IBaseUi{
+abstract class DelegateFra : RxFragment(),IBaseUi{
 
     var mActivity: DelegateAct? = null
 
@@ -143,7 +146,7 @@ abstract class DelegateFra : Fragment(),IBaseUi{
         mUiLayout.getUILoadLayout()?.let {
             req.setUILayout(it)
         }
-        mActivity?.setRequest(url,mParams,req)
+        mActivity?.setRequest(url,mParams,req,bindUntilEvent(FragmentEvent.DESTROY))
     }
 
     //----------通信--------------
@@ -152,7 +155,7 @@ abstract class DelegateFra : Fragment(),IBaseUi{
      * 先注册 订阅
      */
     fun <T> registerRxBus(code: Int,obtainMsg: (T)-> Unit){
-        mActivity?.registerRxBus(code,obtainMsg)
+        mActivity?.registerRxBus(code,obtainMsg,bindUntilEvent(FragmentEvent.DESTROY))
     }
 
     fun post(code: Int,any: Any){

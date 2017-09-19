@@ -49,8 +49,8 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:+'
     compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
     compile 'com.squareup.okhttp3:logging-interceptor:+'
-    compile 'io.reactivex.rxjava2:rxjava:2.1.0'
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile 'io.reactivex.rxjava2:rxjava:+'
+    compile 'io.reactivex.rxjava2:rxandroid:+'
 
     //ARouter
     compile 'com.alibaba:arouter-api:1+'
@@ -80,10 +80,15 @@ dependencies {
     //Logger库
     compile 'com.orhanobut:logger:2.1.1'
     //Rx存储
-    compile 'com.f2prateek.rx.preferences2:rx-preferences:2.0.0-RC3'
+//    compile 'com.f2prateek.rx.preferences2:rx-preferences:2.0.0-RC3'
     //sqllite
 //    compile 'org.greenrobot:greendao:3.2.2' // add library
 
     //AndPermission 兼容android6.0权限问题
     compile 'com.yanzhenjie:permission:1.1.0'
+    //rxlifecycle2
+    compile 'com.trello.rxlifecycle2:rxlifecycle:+'
+    compile 'com.trello.rxlifecycle2:rxlifecycle-android:2.0.1'
+//    compile 'com.trello.rxlifecycle2:rxlifecycle-components:2.0.1'
+
 }
