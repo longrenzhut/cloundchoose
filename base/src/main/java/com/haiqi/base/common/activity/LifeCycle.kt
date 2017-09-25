@@ -18,7 +18,7 @@ class LifeCycle: ILifeCycle{
 
     private var mActivity: Activity? = null
 
-    private var isUseSwipeBackEnable = false;//是否能手势滑动退出
+    private var isUseSwipeBack = false;//是否能手势滑动退出
     private var isBacking = false;//是否手势滑动中
 
     override fun OnCreate(mActivity: Activity) {
@@ -28,26 +28,39 @@ class LifeCycle: ILifeCycle{
         GlideHelper.init()
     }
 
-    override fun OnAttach(isSwipeBackEnable: Boolean) {
-        isUseSwipeBackEnable = true;
-        SwipeBackHelper.onCreate(mActivity)
-        val open = Utils.convertActivityFromTranslucent(mActivity)
+    /**
+     * 是否使用滑动退出
+     */
+    override fun OnAttach(isUseSwipeBack: Boolean) {
+        this.isUseSwipeBack = isUseSwipeBack
+        if(isUseSwipeBack) {
+            SwipeBackHelper.onCreate(mActivity)
+            val open = Utils.convertActivityFromTranslucent(mActivity)
+            SwipeBackHelper.getCurrentPage(mActivity)
+                    .setSwipeBackEnable(true)
+                    .setSwipeRelateEnable(true)
+                    .setSwipeSensitivity(0.6f)
+                    .setSwipeRelateOffset(320)
+                    .setSwipeEdge(dip2px(18))
+                    .setPageTranslucent(!open)
+        }
+    }
+
+    /**
+     * 禁止手势滑动退出
+     */
+    fun setSwipeBackNoEnable(){
         SwipeBackHelper.getCurrentPage(mActivity)
-                .setSwipeBackEnable(isSwipeBackEnable)
-                .setSwipeRelateEnable(true)
-                .setSwipeSensitivity(0.5f)
-                .setSwipeRelateOffset(320)
-                .setSwipeEdge(dip2px(18))
-                .setPageTranslucent(!open)
+                .setSwipeBackEnable(false)
     }
 
     override fun onPostCreate() {
-        if(isUseSwipeBackEnable)
+        if(isUseSwipeBack)
             SwipeBackHelper.onPostCreate(mActivity)
     }
 
     fun setOnExitListener(onExit: (Int)-> Unit){
-        if(isUseSwipeBackEnable){
+        if(isUseSwipeBack){
             SwipeBackHelper.getCurrentPage(mActivity)
                     .addListener(object : SwipeListener{
                         override fun onScroll(percent: Float, px: Int) {
@@ -93,7 +106,7 @@ class LifeCycle: ILifeCycle{
 
 
     override fun OnDestroy() {
-        if(isUseSwipeBackEnable)
+        if(isUseSwipeBack)
             SwipeBackHelper.onDestroy(mActivity)
         mActivity = null
     }

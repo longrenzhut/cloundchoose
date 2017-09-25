@@ -15,7 +15,7 @@ object RxSql{
                     ,result: ((T) -> Unit),onComplete:(() -> Unit)){
         Observable.create(source)
                 .ObservableSet()
-                .compose(act.bindUntilEvent(ActivityEvent.DESTROY))
+                .compose(act.bindUntilEvent<T>(ActivityEvent.DESTROY))
                 .subscribe(result,{},
                         { onComplete},
                         {})
@@ -25,7 +25,7 @@ object RxSql{
                     ,result: ((T) -> Unit)){
         Observable.create(source)
                 .ObservableSet()
-                .compose(act.bindUntilEvent(ActivityEvent.DESTROY))
+                .compose(act.bindUntilEvent<T>(ActivityEvent.DESTROY))
                 .subscribe(result,{},
                         { },
                         {})

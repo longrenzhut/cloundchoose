@@ -51,7 +51,7 @@ class TabLayout(ctx: Context,attrs: AttributeSet?): LinearLayout(ctx,attrs){
     private val mRvTab by lazy(LazyThreadSafetyMode.NONE){
         RecyclerView(context)
     }
-    var hasline = false;
+    var hasline = false
 
     private val line by lazy(LazyThreadSafetyMode.NONE){
         View(context)
@@ -188,7 +188,7 @@ class TabLayout(ctx: Context,attrs: AttributeSet?): LinearLayout(ctx,attrs){
             tv.setTextSize(TypedValue.COMPLEX_UNIT_PX,tabTvSize.toFloat())
             if(tabStyle){
                 val outValue = TypedValue()
-                parent!!.context.getTheme().resolveAttribute(android.R.attr.selectableItemBackground,
+                parent!!.context.theme.resolveAttribute(android.R.attr.selectableItemBackground,
                         outValue, true)
                 tv.setBackgroundResource(outValue.resourceId)
             }

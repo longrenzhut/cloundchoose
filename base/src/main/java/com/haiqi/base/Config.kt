@@ -1,5 +1,7 @@
 package com.haiqi.base
 
+import android.os.Build
+
 /**
  * Created by Administrator on 2017/8/2.
  */
@@ -9,8 +11,10 @@ object Config {
      */
     const val DEBUG = true
     const val BASE_URL = "https://haiqihuocang.com/api/"
-    const val BASE_URL_TEST = "http://test.haiqihuocang.com/"//测试服务器
+    const val BASE_URL_TEST = "http://test.haiqihuocang.com/api/"//测试服务器
 
 
+    //状态栏侵染 sdk大于android5.0 上 使用自定义的状态栏
+    var STATUSBAR: Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
 
 }

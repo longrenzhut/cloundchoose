@@ -17,7 +17,7 @@ class TextSpan(val text: String,val tv: TextView){
 
     fun setTextSapn(tagText: String,style: Int): TextSpan{
         val index = text.indexOf(tagText)
-        span.setSpan(TextAppearanceSpan(tv.getContext(),
+        span.setSpan(TextAppearanceSpan(tv.context,
                 style), index, index + tagText.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
         return this

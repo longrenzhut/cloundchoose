@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <declare-styleable name="baselayout">
+        <attr name="bl_status" format="boolean"/>
+        <attr name="bl_header" format="boolean"/>
+
+    </declare-styleable>
+
+</resources>

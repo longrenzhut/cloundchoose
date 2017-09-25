@@ -16,6 +16,11 @@ class TencentAct: DelegateAct(){
         return R.layout.act_tencent_test
     }
 
+    override fun isStatusBarView(): Boolean {
+        return false
+    }
+
+
     override fun initView() {
         tv_test.RxClick(this){
             ARouter.getInstance().build("/test/xxx").navigation(this)

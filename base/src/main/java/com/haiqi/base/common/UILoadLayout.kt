@@ -20,7 +20,7 @@ import java.util.jar.Attributes
  */
 class UILoadLayout(ctx: Context,attrs: AttributeSet?): LinearLayout(ctx,attrs){
 
-    constructor(ctx: Context): this(ctx,null){}
+    constructor(ctx: Context): this(ctx,null)
 
     init {
         id = R.id.uilayout

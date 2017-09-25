@@ -1,5 +1,8 @@
 <resources>
 
+
+    <dimen name="common_header_height">45dp</dimen>
+
     <dimen name="dp_1_half">0.5dp</dimen>
     <dimen name="dp_1">1dp</dimen>
     <dimen name="dp_2">2dp</dimen>

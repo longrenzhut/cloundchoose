@@ -4,15 +4,15 @@
 
     <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor" tools:targetApi="21">@color/colorPrimaryDark</item>
 
-       <!-- <item name="android:statusBarColor" tools:targetApi="21">@color/white</item>-->
         // 去掉系统状态栏下的windowContentOverlay
         <item name="android:windowContentOverlay">@null</item>
 
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
 
         <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
-        <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@color/white</item>
         <!--<item name="android:listDivider">@drawable/shape_divider</item>-->
@@ -30,10 +30,15 @@
 
     <style name="AppTheme" parent="AppTheme.Base"></style>
 
+    <style name="MainTheme" parent="AppTheme.Base">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@color/white</item>
+    </style>
 
     <!--统一的点击效果-->
     <style name="common_click">
-        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:background">
+            @drawable/ripple_click</item>
     </style>
 
 

@@ -337,26 +337,7 @@ public class SwipeBackLayout extends FrameLayout {
         }
         decorChild.setBackgroundResource(background);
         decor.removeView(decorChild);
-
-//        if(decorChild instanceof LinearLayout){
-//            LinearLayout.LayoutParams lp =
-//                    new LinearLayout.LayoutParams(-1,-2);
-//            StatusBarView view = new StatusBarView(activity);
-//            view.setLayoutParams(lp);
-//            ((LinearLayout) decorChild).addView(view,0);
-//        }
-//        else if(decorChild instanceof RelativeLayout){
-//            RelativeLayout.LayoutParams lp =
-//                    new RelativeLayout.LayoutParams(-1,-2);
-//            StatusBarView view = new StatusBarView(activity);
-//            view.setLayoutParams(lp);
-//            ((RelativeLayout) decorChild).addView(view);
-//
-//        }
-
-
         addView(decorChild);
-
         setContentView(decorChild);
         decor.addView(this);
     }

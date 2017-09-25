@@ -145,8 +145,7 @@ open class AbsAct: RxAppCompatActivity(){
      * 5.0以上 设置全屏通过StustasBarView 取代状态栏设置颜色
      */
     protected fun setStatusBar(color: Int = R.color.transparent) {
-
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+        if(!Config.STATUSBAR)
             StatusBarCompat.setStatusBarColor(window,
                     getActColor(color), true)
         else

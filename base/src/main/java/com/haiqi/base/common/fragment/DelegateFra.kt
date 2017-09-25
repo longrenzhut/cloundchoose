@@ -6,14 +6,15 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import com.haiqi.base.R
+import com.haiqi.base.common.BaseLayout
+import com.haiqi.base.common.UILoadLayout
 import com.haiqi.base.common.activity.DelegateAct
-import com.haiqi.base.common.listener.ICommonLayout
 import com.haiqi.base.http.Params
 import com.haiqi.base.http.ReqCallBack
 import com.haiqi.base.rx.rxlifecycle.RxFragment
 import com.ssdf.highup.base.interf.IBaseUi
-import com.trello.rxlifecycle2.android.ActivityEvent
 import com.trello.rxlifecycle2.android.FragmentEvent
 import org.jetbrains.anko.find
 
@@ -24,6 +25,10 @@ import org.jetbrains.anko.find
 abstract class DelegateFra : RxFragment(),IBaseUi{
 
     var mActivity: DelegateAct? = null
+
+    private val mLayout by lazy(LazyThreadSafetyMode.NONE){
+        find<BaseLayout>(R.id.root)
+    }
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -40,7 +45,7 @@ abstract class DelegateFra : RxFragment(),IBaseUi{
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if(isStatusBarView())
-            mUiLayout.setStatusBarView(getStatusBarColor())
+            mLayout.setStatusBarColor(getStatusBarColor())
         setPresenter()
         initView()
     }
@@ -68,43 +73,37 @@ abstract class DelegateFra : RxFragment(),IBaseUi{
 
 
 
-    val mUiLayout by lazy(LazyThreadSafetyMode.NONE){
-        val root = find<ViewGroup>(R.id.root)
-        root as ICommonLayout
-    }
-
     open fun OnTopClick(viewId: Int){
     }
+
 
     /**
      * 只能调用一次  添加头部
      */
-    fun setCommonHeader(title: String,isLeft: Boolean = false){
-        mUiLayout.setCommonHeader(title,isLeft){
+    fun setCommonHeader(title: String,isLeft: Boolean = true){
+        mLayout.getCommonHeader()?.initHeader(title,isLeft){
             OnTopClick(it)
         }
-    }
-
-    fun setCommonHeader(title: String,isLeft: Boolean = false,Onleft: (Int)->(Unit)){
-        mUiLayout.setCommonHeader(title,isLeft,Onleft)
     }
 
     /**
      * 设置标题
      */
-    fun setTitle(title: String){
-        mUiLayout.setTitle(title)
+    fun setCommonTitle(title: String){
+        mLayout.getCommonHeader()?.setTitle(title)
+
     }
+
 
     /**
      * 设置右图标
      */
     fun setIvRight(drawble: Int = 0,onIvRight: (Int)->(Unit),w: Int = 0, h: Int = w){
-        mUiLayout.setIvRight(drawble,onIvRight,w,h)
+        mLayout.getCommonHeader()?.setIvRight(drawble,onIvRight,w,h)
     }
 
     fun setIvRight(drawble: Int = 0,w: Int = 0, h: Int = w){
-        mUiLayout.setIvRight(drawble,{
+        mLayout.getCommonHeader()?.setIvRight(drawble,{
             OnTopClick(it)
         },w,h)
     }
@@ -113,24 +112,30 @@ abstract class DelegateFra : RxFragment(),IBaseUi{
      * 设置右文本
      */
     fun setTvRight(text: String,onTvRight: (Int)->(Unit),textcolor: Int = 0, size: Int = 15){
-        mUiLayout.setTvRight(text,onTvRight,textcolor,size)
+        mLayout.getCommonHeader()?.setTvRight(text,onTvRight,textcolor,size)
     }
 
     fun setTvRight(text: String,textcolor: Int = 0, size: Int = 15){
-        mUiLayout.setTvRight(text,{
+        mLayout.getCommonHeader()?.setTvRight(text,{
             OnTopClick(it)
         },textcolor,size)
     }
 
+    protected var mUILoadLayout: UILoadLayout? = null
     /**
      * 添加统一的加载动画
-     * 使用UIVerlayout top 可以不赋值
-     * 使用UILayout top 默认头部为 45dp,
+     * top 表示 加载动画 距离顶部的距离
+     * 使用UIVerlayout 不需要赋值
+     * 当使用UILayout top 默认距离顶部 45dp
      */
-    fun setUILoadLayout(top: Int = 45, bottom: Int = 0){
-        mUiLayout.setUILoadLayout({
+    fun setUILoadLayout() {
+        mUILoadLayout = UILoadLayout(context)
+        val lp = RelativeLayout.LayoutParams(-1, -1)
+        mUILoadLayout?.layoutParams = lp
+        mLayout.addView(mUILoadLayout)
+        mUILoadLayout?.setReload {
             requestData()
-        },top,bottom)
+        }
     }
 
 
@@ -143,7 +148,7 @@ abstract class DelegateFra : RxFragment(),IBaseUi{
      */
      fun <T> setRequest(url: String, mParams: Params, req: ReqCallBack<T>){
 
-        mUiLayout.getUILoadLayout()?.let {
+        mUILoadLayout?.let {
             req.setUILayout(it)
         }
         mActivity?.setRequest(url,mParams,req,bindUntilEvent(FragmentEvent.DESTROY))

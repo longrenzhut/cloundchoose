@@ -43,12 +43,15 @@ class UIHeaderLayout(ctx: Context,attrs: AttributeSet?): RelativeLayout(ctx,attr
     }
 
 
-    fun initHeader(title: String,isLeft: Boolean = true,OnClickHeader: (Int)->(Unit)){
+
+    fun initHeader(title: String,isLeft: Boolean = true,OnClickHeader: ((Int)->(Unit))? = null){
         mTvTitle.text = title
         if(isLeft){
             mIvLeft.setVisible(1)
             mIvLeft.setOnClickListener{
-                OnClickHeader(id)
+                OnClickHeader?.let {
+                    it(id)
+                }
             }
         }
     }

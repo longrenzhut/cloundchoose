@@ -2,6 +2,8 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     >
 
+
+
     <ProgressBar
         android:id="@+id/pb_loading"
         android:layout_width="@dimen/dp_25"

@@ -2,10 +2,12 @@ package com.haiqi.base.common.activity
 
 import android.os.Bundle
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import com.haiqi.base.R
+import com.haiqi.base.common.BaseLayout
+import com.haiqi.base.common.UILoadLayout
 import com.haiqi.base.http.Params
 import com.haiqi.base.http.ReqCallBack
-import com.haiqi.base.common.listener.ICommonLayout
 import com.haiqi.base.widget.dialog.LoadingDialog
 import com.ssdf.highup.base.interf.IBaseUi
 import com.trello.rxlifecycle2.LifecycleTransformer
@@ -20,42 +22,51 @@ import org.jetbrains.anko.find
  */
 abstract class DelegateAct: AbsAct(),IBaseUi{
 
-    private val mUiLayout by lazy(LazyThreadSafetyMode.NONE){
-        val root = find<ViewGroup>(R.id.root)
-        root as ICommonLayout
+    private val mLayout by lazy(LazyThreadSafetyMode.NONE){
+        find<BaseLayout>(R.id.root)
     }
 
     /**
-     * 是否可以滑动退出
+     * 是否使用使用手势滑动退出
      */
-    open fun isSwipeBackEnable(): Boolean {
+    open fun isUseSwipeBack(): Boolean {
         return true
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mLifeCycle.OnAttach(isSwipeBackEnable())
-        if(isSwipeBackEnable())
-            mLifeCycle.setOnExitListener {
-                OnTopClick(R.id.iv_left)
-            }
         setContentView(getLayoutId())
+
+        mLifeCycle.OnAttach(isUseSwipeBack())
+        mLifeCycle.setOnExitListener {
+            OnTopClick(R.id.iv_left)
+        }
+
+        //设置5.0以上的状态栏颜色 自定义的
         if(isStatusBarView())
-            mUiLayout.setStatusBarView(getStatusBarColor())
+            mLayout.setStatusBarColor(getStatusBarColor())
         setStatusBar(getStatusBarColor())
+
         setPresenter()
         initView()
     }
 
     /**
+     * 禁止手势滑动退出
+     */
+    open fun setSwipeBackNoEnable(){
+        mLifeCycle.setSwipeBackNoEnable()
+    }
+
+    /**
      * 是否添加状态栏的StatusBarView
      */
-    fun isStatusBarView(): Boolean  = true
+    open fun isStatusBarView(): Boolean  = true
 
     /**
      * 动态设置状态栏的颜色
      */
-    fun getStatusBarColor(): Int = R.color.white
+    open fun getStatusBarColor(): Int = R.color.colorPrimaryDark
 
     override fun onBackPressed() {
         if(!mLifeCycle.onBackPressed())
@@ -76,7 +87,7 @@ abstract class DelegateAct: AbsAct(),IBaseUi{
 
     fun dismissDialog(){
         mLoadingDialog?.let{
-            if(it.isShowing())
+            if(it.isShowing)
                 it.show()
         }
     }
@@ -87,39 +98,34 @@ abstract class DelegateAct: AbsAct(),IBaseUi{
             finish()
     }
 
+
     /**
      * 只能调用一次  添加头部
      */
     fun setCommonHeader(title: String,isLeft: Boolean = true){
-        mUiLayout.setCommonHeader(title,isLeft){
+        mLayout.getCommonHeader()?.initHeader(title,isLeft){
             OnTopClick(it)
         }
-    }
-
-    fun setCommonHeader(layoutid: Int,headerHeight: Int){
-        mUiLayout.setCommonHeader(layoutid,headerHeight)
-    }
-
-    fun setCommonHeader(title: String,isLeft: Boolean = true,Onleft: (Int)->(Unit)){
-        mUiLayout.setCommonHeader(title,isLeft,Onleft)
     }
 
     /**
      * 设置标题
      */
-    fun setTitle(title: String){
-        mUiLayout.setTitle(title)
+    fun setCommonTitle(title: String){
+        mLayout.getCommonHeader()?.setTitle(title)
+
     }
+
 
     /**
      * 设置右图标
      */
     fun setIvRight(drawble: Int = 0,onIvRight: (Int)->(Unit),w: Int = 0, h: Int = w){
-        mUiLayout.setIvRight(drawble,onIvRight,w,h)
+        mLayout.getCommonHeader()?.setIvRight(drawble,onIvRight,w,h)
     }
 
     fun setIvRight(drawble: Int = 0,w: Int = 0, h: Int = w){
-        mUiLayout.setIvRight(drawble,{
+        mLayout.getCommonHeader()?.setIvRight(drawble,{
             OnTopClick(it)
         },w,h)
     }
@@ -128,25 +134,31 @@ abstract class DelegateAct: AbsAct(),IBaseUi{
      * 设置右文本
      */
     fun setTvRight(text: String,onTvRight: (Int)->(Unit),textcolor: Int = 0, size: Int = 15){
-        mUiLayout.setTvRight(text,onTvRight,textcolor,size)
+        mLayout.getCommonHeader()?.setTvRight(text,onTvRight,textcolor,size)
     }
 
     fun setTvRight(text: String,textcolor: Int = 0, size: Int = 15){
-        mUiLayout.setTvRight(text,{
+        mLayout.getCommonHeader()?.setTvRight(text,{
             OnTopClick(it)
         },textcolor,size)
     }
 
+
+    protected var mUILoadLayout: UILoadLayout? = null
     /**
      * 添加统一的加载动画
      * top 表示 加载动画 距离顶部的距离
      * 使用UIVerlayout 不需要赋值
      * 当使用UILayout top 默认距离顶部 45dp
      */
-    fun setUILoadLayout(top: Int = 45, bottom: Int = 0){
-        mUiLayout.setUILoadLayout({
+    fun setUILoadLayout() {
+        mUILoadLayout = UILoadLayout(this)
+        val lp = RelativeLayout.LayoutParams(-1, -1)
+        mUILoadLayout?.layoutParams = lp
+        mLayout.addView(mUILoadLayout)
+        mUILoadLayout?.setReload {
             requestData()
-        },top,bottom)
+        }
     }
 
 
@@ -164,7 +176,7 @@ abstract class DelegateAct: AbsAct(),IBaseUi{
         mLoadingDialog?.let {
             req.setLoading(it)
         }
-        mUiLayout.getUILoadLayout()?.let {
+        mUILoadLayout?.let {
             req.setUILayout(it)
         }
         super.setRequestBase(url,mParams,req, compose)

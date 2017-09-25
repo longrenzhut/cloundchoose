@@ -107,10 +107,6 @@ public class StatusBarCompat {
         LightStatusBarCompat.setLightStatusBar(window, lightStatusBar);
     }
 
-    public static void setLightStatusBars(Window window, boolean lightStatusBar){
-        LightStatusBarCompat.setLightStatusBar(window, lightStatusBar);
-    }
-
 
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     public static void setFitsSystemWindows(Window window, boolean fitSystemWindows) {

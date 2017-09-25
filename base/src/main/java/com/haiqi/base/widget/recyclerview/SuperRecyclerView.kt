@@ -19,7 +19,7 @@ open class SuperRecyclerView(ctx: Context,attrs: AttributeSet?): RecyclerView(ct
     constructor(ctx: Context): this(ctx,null)
 
     private var isLoading =  false
-    var page = 1;
+    var page = 1
 
 
     val adapters by lazy(LazyThreadSafetyMode.NONE){

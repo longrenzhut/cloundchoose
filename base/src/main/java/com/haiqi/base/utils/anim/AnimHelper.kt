@@ -100,7 +100,7 @@ class AnimHelper(val onAnimEnd: (()-> Unit)? = null,val OnAnimStart: (()-> Unit)
         animator.startDelay = delay;   //设置延迟开始
         animator.duration = duration;
         animator.interpolator = LinearInterpolator();   //动画匀速
-        animator.start();
+        animator.start()
     }
 
 }
