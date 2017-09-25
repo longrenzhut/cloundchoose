@@ -6,15 +6,20 @@
 
 
     <color name="white">#ffffff</color>
+    <color name="red">#ff0000</color>
+    <color name="blue">#00ff00</color>
     <color name="black">#000000</color>
     <color name="transparent">#00000000</color>
 
 
     <color name="cl_f9f9f9">#f9f9f9</color>
+    <color name="cl_88f9f9f9">#88f9f9f9</color>
     <color name="cl_aaaaaa">#aaaaaa</color>
     <color name="cl_ff5151">#ff5151</color>-
     <color name="cl_fe9d6a">#fe9d6a</color>
     <color name="cl_686868">#686868</color>
+    <color name="cl_888888">#888888</color>
+    <color name="cl_999999">#999999</color>
     <color name="cl_f0f0f0">#f0f0f0</color>
     <color name="cl_e0e0e0">#e0e0e0</color>
     <color name="cl_333333">#333333</color>

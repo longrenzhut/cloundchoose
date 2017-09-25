@@ -51,8 +51,7 @@ class MainAct: BaseAct<MainPt, IMain>(), IMain {
     override fun initView() {
         PermissionHelper.apply(this,100,Permission.STORAGE)
 
-//        setCommonHeader()
-//        setCommonHeader("云选")
+        setCommonHeader("云选")
         setUILoadLayout()
         requestData()
 

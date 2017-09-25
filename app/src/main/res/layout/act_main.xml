@@ -22,11 +22,18 @@
             app:sv_top_right="true"
             app:sv_soild_color="@color/black"/>
 
-        <TextView
-            android:id="@+id/tv_input"
-            style="@style/common_click"
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_50" />
+            android:layout_height="@dimen/dp_50"
+            android:background="@color/red">
+            <TextView
+                android:id="@+id/tv_input"
+                android:background="@drawable/ripple_click"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_50" />
+
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="wrap_content"

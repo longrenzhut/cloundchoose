@@ -37,8 +37,7 @@
 
     <!--统一的点击效果-->
     <style name="common_click">
-        <item name="android:background">
-            @drawable/ripple_click</item>
+        <item name="android:background">@drawable/ripple_common_click</item>
     </style>
 
 
