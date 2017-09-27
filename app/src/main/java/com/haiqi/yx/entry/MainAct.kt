@@ -97,6 +97,7 @@ class MainAct: BaseAct<MainPt, IMain>(), IMain {
             showToast("我收到了")
             glide_s.setUrl(url)
         }
+
 //        Observable.interval(100, TimeUnit.MILLISECONDS)
 //                .subscribe {
 //                    var i = 0

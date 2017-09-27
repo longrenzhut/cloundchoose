@@ -94,6 +94,7 @@ class HttpProvider(val url: String = ""){
 
 
 
+
     fun publicBody(fields: Map<String, Any>?): MultipartBody.Builder {
         val builder = MultipartBody.Builder().setType(MultipartBody.FORM)
         if (null != fields && fields.size > 0) {
