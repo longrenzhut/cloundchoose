@@ -38,7 +38,7 @@ public class StatusBarCompat {
         } else {
             IMPL = new IStatusBar() {
                 @Override
-                public void setStatusBarColor(Window window, @ColorInt int color) {
+                public void setStatusBarColor(Window window, @ColorInt int color,boolean isfull) {
                 }
             };
         }
@@ -87,8 +87,10 @@ public class StatusBarCompat {
      * @param color          status bar color
      * @param lightStatusBar if the status bar color is light. Only effective in some devices.
      */
-    public static void setStatusBarColor(Activity activity, @ColorInt int color, boolean lightStatusBar) {
-        setStatusBarColor(activity.getWindow(), color, lightStatusBar);
+    public static void setStatusBarColor(Activity activity, @ColorInt int color,
+                                         boolean lightStatusBar,
+                                         boolean fullScreen) {
+        setStatusBarColor(activity.getWindow(), color, lightStatusBar,fullScreen);
     }
 
     /**
@@ -98,12 +100,14 @@ public class StatusBarCompat {
      * @param color          status bar color
      * @param lightStatusBar if the status bar color is light. Only effective in some devices.
      */
-    public static void setStatusBarColor(Window window, @ColorInt int color, boolean lightStatusBar) {
+    public static void setStatusBarColor(Window window, @ColorInt int color,
+                                         boolean lightStatusBar,
+                                         boolean fullScreen) {
         if ((window.getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) > 0
                 || StatusBarExclude.exclude) {
             return;
         }
-        IMPL.setStatusBarColor(window, color);
+        IMPL.setStatusBarColor(window, color,fullScreen);
         LightStatusBarCompat.setLightStatusBar(window, lightStatusBar);
     }
 

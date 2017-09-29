@@ -19,13 +19,17 @@ class RxBus2{
 
     }
 
-    private val mBus by lazy {
-        PublishProcessor.create<RxMessage>().toSerialized()
+     val mBus by lazy {
+        PublishProcessor.create<Any>().toSerialized()
     }
 
 
     fun post(code: Int,clz: Any){
         mBus.onNext(RxMessage(code,clz))
+    }
+
+    fun <T> post(t: T){
+        mBus.onNext(t)
     }
 
 
@@ -37,6 +41,9 @@ class RxBus2{
 
     }
 
+   inline fun <reified T> toFlowable(): Flowable<T> {
+       return mBus.ofType(T::class.java)
+               .onBackpressureBuffer()
 
-
+   }
 }

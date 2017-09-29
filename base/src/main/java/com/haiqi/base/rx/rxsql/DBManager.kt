@@ -50,7 +50,7 @@ class DBManager {
     /*val dpath = Environment.getExternalStorageDirectory().toString() + "/highup/"*/
 
     private val dbLoacalHeler by lazy{
-        DbHelper(BaseApp.getApp(), dbname, null, VERSION,path)
+        DbHelper(BaseApp.getApp(), dbname, null,VERSION,path)
     }
 
     private val dbHeler by lazy{

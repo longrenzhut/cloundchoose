@@ -20,11 +20,8 @@ open class BaseDialog(ctx: Context,theme: Int): Dialog(ctx,theme){
     }
 
     fun setStatusBar(color: Int = R.color.transparent) {
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-            StatusBarCompat.setStatusBarColor(window,
-                    getColor(color), true)
-        else
-            StatusBarCompat.setLightStatusBar(window,true)
+        StatusBarCompat.setStatusBarColor(window,
+                getColor(color), true,true)
     }
 
 

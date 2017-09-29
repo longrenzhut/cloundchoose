@@ -18,7 +18,7 @@ object HttpProvider2{
 
     private val CONNECT_TIMEOUT = 8
 
-    private fun createRetrofit(url: String = ""): Retrofit{
+     fun createRetrofit(url: String = ""): Retrofit{
         val baseUrl =  if(!url.isNullOrEmpty())
             url
         else
@@ -77,14 +77,5 @@ object HttpProvider2{
         return mRetrofit.create(BaseService::class.java)
     }
 
-    private var url = ""
 
-    private val common by lazy{
-        createRetrofit(url)
-    }
-
-    fun get(url: String): Retrofit{
-        this.url = url
-        return common
-    }
 }

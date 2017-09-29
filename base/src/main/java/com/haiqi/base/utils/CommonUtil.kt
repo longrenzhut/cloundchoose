@@ -1,6 +1,8 @@
 package com.haiqi.base.utils
 
 import android.app.Activity
+import android.content.Context
+import android.content.pm.PackageManager
 import android.util.DisplayMetrics
 import com.haiqi.base.common.application.BaseApp
 
@@ -33,6 +35,35 @@ object CommonUtil{
 
     public fun getScales(): Float = scale
 
+    /**
+     * 版本号1.12
+     */
+    fun getVersionName(): String {
+        val manager = BaseApp.getApp().packageManager
+        try {
+            val info = manager.getPackageInfo(BaseApp.getApp().packageName, 0)
+            return info.versionName
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+
+        }
+
+        return ""
+    }
+
+
+    fun getVersionCode(): Int {
+        val manager = BaseApp.getApp().packageManager
+        try {
+            val info = manager.getPackageInfo(BaseApp.getApp().packageName, 0)
+            return info.versionCode
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+
+        }
+
+        return 1
+    }
 
 
 }

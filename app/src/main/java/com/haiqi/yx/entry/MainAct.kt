@@ -22,6 +22,8 @@ import io.reactivex.Observable
 import android.content.DialogInterface
 import android.content.Intent
 import android.support.v7.app.AlertDialog
+import com.haiqi.base.service.ServiceMananger
+import com.haiqi.base.service.model.VersionModel
 import com.haiqi.base.utils.Mylogger
 import com.haiqi.base.utils.permission.PermissionHelper
 import com.haiqi.yx.entry.model.TestModel
@@ -70,6 +72,9 @@ class MainAct: BaseAct<MainPt, IMain>(), IMain {
 
     override fun requestData() {
         mPrsenter.requestData()
+        mPrsenter.getTest()
+        val version = VersionModel("http://iwant-u.cn/document/","highup20170505.apk",2017061201)
+        ServiceMananger.updataVersion(this,version)
 //        val list = listOf(1,2)
 //        Observable.from(list).filter(object : Func1<Int,Boolean>{
 //            override fun call(t: Int?): Boolean? {

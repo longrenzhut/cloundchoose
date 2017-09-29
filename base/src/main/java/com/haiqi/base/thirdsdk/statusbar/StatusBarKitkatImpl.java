@@ -24,22 +24,29 @@ public class StatusBarKitkatImpl implements IStatusBar {
     private static final String STATUS_BAR_VIEW_TAG = "ghStatusBarView";
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
-    public void setStatusBarColor(Window window, int color) {
+    public void setStatusBarColor(Window window, int color,boolean isfull) {
         window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 
         ViewGroup decorViewGroup = (ViewGroup) window.getDecorView();
         View statusBarView = decorViewGroup.findViewWithTag(STATUS_BAR_VIEW_TAG);
-        if (statusBarView == null) {
-            statusBarView = new View(window.getContext());
-            statusBarView.setTag(STATUS_BAR_VIEW_TAG);
-            int statusBarHeight = getStatusBarHeight(window.getContext());
-            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, statusBarHeight);
-            params.gravity = Gravity.TOP;
-            statusBarView.setLayoutParams(params);
-            decorViewGroup.addView(statusBarView);
+        if(isfull){
+            if (statusBarView != null) {
+                decorViewGroup.removeView(statusBarView);
+            }
         }
-        statusBarView.setBackgroundColor(color);
-        StatusBarCompat.setFitsSystemWindows(window, true);
+        else {
+            if (statusBarView == null) {
+                statusBarView = new View(window.getContext());
+                statusBarView.setTag(STATUS_BAR_VIEW_TAG);
+                int statusBarHeight = getStatusBarHeight(window.getContext());
+                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, statusBarHeight);
+                params.gravity = Gravity.TOP;
+                statusBarView.setLayoutParams(params);
+                decorViewGroup.addView(statusBarView);
+            }
+            statusBarView.setBackgroundColor(color);
+            StatusBarCompat.setFitsSystemWindows(window, true);
+        }
     }
 
     public static int statusBarHeight = 0;

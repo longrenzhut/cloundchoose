@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.haiqi.yx">
+    package="com.haiqi.yx"
+    android:versionCode="20170601"
+    android:versionName="1.0.0">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -27,6 +29,23 @@
 
         <activity android:name=".entry.TestAct"/>
         <activity android:name=".entry.TestMDAct"/>
+
+        <service android:name="com.haiqi.base.service.DownApkService"/>
+
+
+        <!--  此部分代码需要移植到您的 app 下的 manifest，并且 authorities
+        指定您的包名。例如：com.android.FileProvider
+               -   否则使用拍照功能时，会崩溃
+               兼容7.0系统 fileUriExp异常-->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.haiqi.yx.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/rc_file_path" />
+        </provider>
     </application>
 
 

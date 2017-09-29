@@ -15,6 +15,6 @@ object Config {
 
 //    http://182.92.204.193:8081/v1/
     //状态栏侵染 sdk大于android5.0 上 使用自定义的状态栏
-     var STATUSBAR: Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
+     var STATUSBAR: Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
 
 }

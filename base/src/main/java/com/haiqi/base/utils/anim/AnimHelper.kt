@@ -70,7 +70,7 @@ class AnimHelper(val onAnimEnd: (()-> Unit)? = null,val OnAnimStart: (()-> Unit)
                 it(width)
             }
             target.layoutParams.width = width;
-            target.requestLayout();
+            target.requestLayout()
         }
     }
 

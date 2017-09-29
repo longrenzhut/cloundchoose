@@ -9,7 +9,7 @@ import com.haiqi.base.common.fragment.DelegateFra
 interface IBasePt<T> {
 
 
-    fun attachActivity(mAct: DelegateAct)
+    fun attachActivity(mAct: DelegateAct?)
 
     fun attachFragment(mFra: DelegateFra)
 

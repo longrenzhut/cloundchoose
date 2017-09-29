@@ -2,8 +2,14 @@ package com.haiqi.base.common.presenter
 
 import com.haiqi.base.common.activity.DelegateAct
 import com.haiqi.base.common.fragment.DelegateFra
+import com.haiqi.base.http.BaseSubscriber
 import com.haiqi.base.http.Params
 import com.haiqi.base.http.ReqCallBack
+import com.trello.rxlifecycle2.LifecycleTransformer
+import com.trello.rxlifecycle2.android.ActivityEvent
+import com.trello.rxlifecycle2.android.FragmentEvent
+import io.reactivex.Observable
+import okhttp3.ResponseBody
 import java.lang.ref.WeakReference
 
 /**
@@ -14,7 +20,7 @@ import java.lang.ref.WeakReference
 open class BasePt<T>: IBasePt<T>{
 
 
-    private lateinit var mActivity: DelegateAct
+    private var mActivity: DelegateAct? = null
 
 
 
@@ -27,7 +33,7 @@ open class BasePt<T>: IBasePt<T>{
 
     private var mFrament: DelegateFra? = null
 
-    override fun attachActivity(mAct: DelegateAct) {
+    override fun attachActivity(mAct: DelegateAct?) {
         this.mActivity = mAct
     }
 
@@ -54,11 +60,28 @@ open class BasePt<T>: IBasePt<T>{
 
     }
 
-    fun <T> setRequest(url: String, mParams: Params, req: ReqCallBack<T>){
+    fun <T> get(url: String, mParams: Params, req: ReqCallBack<T>){
         mFrament?.let{
-            it.setRequest(url,mParams,req)
+            it.get(url,mParams,req)
         } ?:
-                mActivity.setRequest(url,mParams,req)
+                mActivity?.get(url,mParams,req)
+    }
+
+    fun <T> post(url: String, mParams: Params, req: ReqCallBack<T>){
+        mFrament?.let{
+            it.post(url,mParams,req)
+        } ?:
+                mActivity?.post(url,mParams,req)
+    }
+
+    fun request(observable: Observable<ResponseBody>,
+                observer: BaseSubscriber<ResponseBody>){
+
+        val event = if(null == mFrament)
+            mActivity!!.bindUntilEvent<ResponseBody>(ActivityEvent.DESTROY)
+        else
+            mFrament!!.bindUntilEvent<ResponseBody>(FragmentEvent.DESTROY)
+        mActivity?.request(observable,observer,event)
     }
 
 }

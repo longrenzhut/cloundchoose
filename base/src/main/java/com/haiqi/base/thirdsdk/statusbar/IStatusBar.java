@@ -11,5 +11,5 @@ import android.view.Window;
  */
 
 interface IStatusBar {
-    void setStatusBarColor(Window window, int color);
+    void setStatusBarColor(Window window, int color,boolean isfull);
 }

@@ -146,12 +146,20 @@ abstract class DelegateFra : RxFragment(),IBaseUi{
      * url 请求的叠纸
      * mParams 参数
      */
-     fun <T> setRequest(url: String, mParams: Params, req: ReqCallBack<T>){
+     fun <T> get(url: String, mParams: Params, req: ReqCallBack<T>){
 
         mUILoadLayout?.let {
             req.setUILayout(it)
         }
-        mActivity?.setRequest(url,mParams,req,bindUntilEvent(FragmentEvent.DESTROY))
+        mActivity?.get(url,mParams,req,bindUntilEvent(FragmentEvent.DESTROY))
+    }
+
+     fun <T> post(url: String, mParams: Params, req: ReqCallBack<T>){
+
+        mUILoadLayout?.let {
+            req.setUILayout(it)
+        }
+        mActivity?.post(url,mParams,req,bindUntilEvent(FragmentEvent.DESTROY))
     }
 
     //----------通信--------------

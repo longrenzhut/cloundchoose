@@ -22,10 +22,13 @@ import com.haiqi.base.utils.getActColor
 import com.trello.rxlifecycle2.LifecycleTransformer
 import com.trello.rxlifecycle2.android.ActivityEvent
 import com.umeng.analytics.MobclickAgent
+import io.reactivex.Observable
+import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import okhttp3.ResponseBody
+import java.util.*
 
 /**
  * Created by zhutao on 2017/8/2.
@@ -145,11 +148,8 @@ open class AbsAct: RxAppCompatActivity(){
      * 5.0以上 设置全屏通过StustasBarView 取代状态栏设置颜色
      */
     protected fun setStatusBar(color: Int = R.color.transparent) {
-        if(!Config.STATUSBAR)
-            StatusBarCompat.setStatusBarColor(window,
-                    getActColor(color), true)
-        else
-            StatusBarCompat.setLightStatusBar(window,true)
+        StatusBarCompat.setStatusBarColor(window,
+                getActColor(color), true,true)
     }
 
     fun log(msg: String){
@@ -160,21 +160,18 @@ open class AbsAct: RxAppCompatActivity(){
     //-------------------------封装统一的网络请求
 
 
-
     /**
      * url 请求的叠纸
      * mParams 参数
      */
-     fun <T> setRequestBase(url: String, mParams: Params,
-                            req: ReqCallBack<T>,
-                            compose: LifecycleTransformer<ResponseBody>){
-        HttpProvider.getHttpProvider()
-                .createService<BaseService>()
-                .post(url,mParams.getParams())
-                .compose(compose)
+    fun request(observable: Observable<ResponseBody>,
+                observer: BaseSubscriber<ResponseBody>,
+                compose: LifecycleTransformer<ResponseBody>
+                = bindUntilEvent(ActivityEvent.DESTROY)){
+        observable.compose(compose)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(ReqSubscriber(req))
+                .subscribe(observer)
     }
 
     //----------通信--------------
@@ -186,6 +183,8 @@ open class AbsAct: RxAppCompatActivity(){
                           compose: LifecycleTransformer<RxMessage>){
         RxBus2.instance().toFlowable(code)
                 .compose(compose)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     obtainMsg(it.msg as T)
                 }

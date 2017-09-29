@@ -6,8 +6,8 @@ ext{
                buildToolsVersion : "25.0.3",
                minSdkVersion     : 16,//4.1
                targetSdkVersion  : 25,
-               versionCode       : 1,
-               versionName       : "1.0"]
+               versionCode       : 20170601,
+               versionName       : "1.0.0"]
 
 
    /* dependencies = ["support-v7"        : 'com.android.support:appcompat-v7:23.+',

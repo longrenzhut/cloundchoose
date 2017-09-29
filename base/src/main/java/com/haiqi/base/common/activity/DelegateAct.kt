@@ -6,8 +6,10 @@ import android.widget.RelativeLayout
 import com.haiqi.base.R
 import com.haiqi.base.common.BaseLayout
 import com.haiqi.base.common.UILoadLayout
+import com.haiqi.base.http.HttpProvider2
 import com.haiqi.base.http.Params
 import com.haiqi.base.http.ReqCallBack
+import com.haiqi.base.http.ReqSubscriber
 import com.haiqi.base.widget.dialog.LoadingDialog
 import com.ssdf.highup.base.interf.IBaseUi
 import com.trello.rxlifecycle2.LifecycleTransformer
@@ -168,7 +170,7 @@ abstract class DelegateAct: AbsAct(),IBaseUi{
      * url 请求的叠纸
      * mParams 参数
      */
-    fun <T> setRequest(url: String, mParams: Params,
+    fun <T> get(url: String, mParams: Params,
                                req: ReqCallBack<T>,
                        compose: LifecycleTransformer<ResponseBody>
                          = bindUntilEvent(ActivityEvent.DESTROY)){
@@ -179,7 +181,23 @@ abstract class DelegateAct: AbsAct(),IBaseUi{
         mUILoadLayout?.let {
             req.setUILayout(it)
         }
-        super.setRequestBase(url,mParams,req, compose)
+        request(HttpProvider2.create().get(url,mParams.getParams()),
+                ReqSubscriber(req),compose)
+    }
+
+    fun <T> post(url: String, mParams: Params,
+                               req: ReqCallBack<T>,
+                       compose: LifecycleTransformer<ResponseBody>
+                         = bindUntilEvent(ActivityEvent.DESTROY)){
+
+        mLoadingDialog?.let {
+            req.setLoading(it)
+        }
+        mUILoadLayout?.let {
+            req.setUILayout(it)
+        }
+        request(HttpProvider2.create().post(url,mParams.getParams()),
+                ReqSubscriber(req),compose)
     }
 
 

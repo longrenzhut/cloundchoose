@@ -2,9 +2,15 @@ package com.haiqi.base.common.application
 
 import android.content.res.Configuration
 import android.content.res.Resources
+import android.os.Build
 import com.haiqi.base.Config
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
+import android.os.StrictMode
+import android.os.Build.VERSION_CODES
+import android.os.Build.VERSION
+
+
 
 /**
  * Created by Administrator on 2017/8/2.
@@ -22,6 +28,14 @@ open class BaseApp: AbsApp(){
         super.onCreate()
 
         instance = this
+
+        /**
+         * 解决Android 7.0 FileUriExposedException 异常
+         */
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            val builder = StrictMode.VmPolicy.Builder()
+            StrictMode.setVmPolicy(builder.build())
+        }
 
         Logger.addLogAdapter(object : AndroidLogAdapter(){
             override fun isLoggable(priority: Int, tag: String?): Boolean {
