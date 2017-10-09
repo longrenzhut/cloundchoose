@@ -21,11 +21,6 @@
         android:theme="@style/AppTheme">
 
 
-        <meta-data
-            android:name="QBSDKAppKey"
-            android:value="Q7xpuMkavjlnT1JB+DounMu3">
-        </meta-data>
-
         <activity
             android:name=".entry.MainAct"
             android:theme="@style/MainTheme"
