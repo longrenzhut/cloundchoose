@@ -27,6 +27,7 @@ import com.haiqi.base.service.model.VersionModel
 import com.haiqi.base.utils.Mylogger
 import com.haiqi.base.utils.permission.PermissionHelper
 import com.haiqi.yx.entry.model.TestModel
+import com.haiqi.yx.webviewx5.X5Act
 import com.yanzhenjie.permission.PermissionNo
 import com.yanzhenjie.permission.PermissionYes
 import com.yanzhenjie.permission.PermissionListener
@@ -73,8 +74,8 @@ class MainAct: BaseAct<MainPt, IMain>(), IMain {
     override fun requestData() {
         mPrsenter.requestData()
         mPrsenter.getTest()
-        val version = VersionModel("http://iwant-u.cn/document/","highup20170505.apk",2017061201)
-        ServiceMananger.updataVersion(this,version)
+//        val version = VersionModel("http://iwant-u.cn/document/","highup20170505.apk",2017061201)
+//        ServiceMananger.updataVersion(this,version)
 //        val list = listOf(1,2)
 //        Observable.from(list).filter(object : Func1<Int,Boolean>{
 //            override fun call(t: Int?): Boolean? {
@@ -84,8 +85,11 @@ class MainAct: BaseAct<MainPt, IMain>(), IMain {
 //        }).subscribe {  }
         tv_input.RxClick(this){
 //            this@MainAct.startActivity(Intent(this@MainAct,TestMDAct::class.java))
-            ARouter.getInstance().build("/tent/sss").navigation(this)
+//            ARouter.getInstance().build("/tent/sss").navigation(this)
+            ARouter.getInstance().build("/tencent/x5").navigation(this)
 //            ARouter.getInstance().build("/tent/testmd").navigation(this)
+             this@MainAct.startActivity(Intent(this@MainAct
+                     , X5Act::class.java))
 //            Router(this@MainAct).go<TestAct>()
         }
         val url = "http://haiqihuocang.oss-cn-hangzhou.aliyuncs.com/product_img/20170712149986128464639794.jpg"

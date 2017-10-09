@@ -7,7 +7,7 @@ import com.haiqi.base.common.presenter.BasePt
  * Created by zhtuao on 2017/8/3.
  * 封装mvp
  */
-abstract class BaseAct<T: BasePt<H>,H: IBaseView>: DelegateAct(){
+abstract class BaseAct<out T: BasePt<H>,H: IBaseView>: DelegateAct(){
 
     val mPrsenter by lazy{
         getPresenter()

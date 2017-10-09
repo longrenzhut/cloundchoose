@@ -19,7 +19,6 @@ android {
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode 1
         versionName "1.0"
-
     }
     buildTypes {
         release {
@@ -27,12 +26,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+//    sourceSets{
+//        main {
+//            jniLibs.srcDirs = ['main/jniLibs']
+//        }
+//    }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-
     kapt 'com.alibaba:arouter-compiler:1.0.3'
-
     compile project(':base')
 }

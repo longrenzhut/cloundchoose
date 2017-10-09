@@ -88,7 +88,7 @@ class QqLoginHelper{
                     val headurl = json.optString("figureurl_qq_2")
                     OnSuccess(nickName,headurl)
                 }
-            },OnFailed,1);
+            },OnFailed,1)
             user.getUserInfo(call)
         }
     }

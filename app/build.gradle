@@ -13,6 +13,9 @@ android {
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode rootProject.ext.android.versionCode
         versionName rootProject.ext.android.versionName
+
+//        ndk{abiFilters "armeabi"}
+        ndk { abiFilters "armeabi", "armeabi-v7a", "x86", "mips" }
     }
 
 
@@ -23,11 +26,12 @@ android {
         }
     }
 
-    sourceSets {
-        main {
-            jniLibs.srcDirs = ['libs']
-        }
-    }
+//    sourceSets {
+//        main {
+//            jniLibs.srcDirs = ['libs']
+//        }
+//    }
+
 }
 
 dependencies {
@@ -35,6 +39,4 @@ dependencies {
     compile 'jp.wasabeef:recyclerview-animators:2.2.0'
     compile project(':wechatsdk')
     compile project(':tencentsdk')
-
-    compile 'top.zibin:Luban:1.1.3'
 }
