@@ -72,6 +72,7 @@ class MainAct: BaseAct<MainPt, IMain>(), IMain {
     }
 
     override fun requestData() {
+//        getWindow().setExitTransition()
         mPrsenter.requestData()
         mPrsenter.getTest()
 //        val version = VersionModel("http://iwant-u.cn/document/","highup20170505.apk",2017061201)
@@ -88,8 +89,8 @@ class MainAct: BaseAct<MainPt, IMain>(), IMain {
 //            ARouter.getInstance().build("/tent/sss").navigation(this)
             ARouter.getInstance().build("/tencent/x5").navigation(this)
 //            ARouter.getInstance().build("/tent/testmd").navigation(this)
-             this@MainAct.startActivity(Intent(this@MainAct
-                     , X5Act::class.java))
+//             this@MainAct.startActivity(Intent(this@MainAct
+//                     , X5Act::class.java))
 //            Router(this@MainAct).go<TestAct>()
         }
         val url = "http://haiqihuocang.oss-cn-hangzhou.aliyuncs.com/product_img/20170712149986128464639794.jpg"

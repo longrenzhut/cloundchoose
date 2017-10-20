@@ -24,7 +24,7 @@ import org.jetbrains.anko.find
  */
 abstract class DelegateAct: AbsAct(),IBaseUi{
 
-    private val mLayout by lazy(LazyThreadSafetyMode.NONE){
+    protected val mLayout by lazy(LazyThreadSafetyMode.NONE){
         find<BaseLayout>(R.id.root)
     }
 

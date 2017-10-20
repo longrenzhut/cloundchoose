@@ -91,7 +91,7 @@ class GlideImageView(ctx: Context,attr: AttributeSet?): RelativeLayout(ctx,attr)
     }
 
     private var imgurl = ""
-    private var loadingSuc = false;
+    private var loadingSuc = false
 
     fun setUrl(url: String,w: Int = 0, h: Int = 0){
         this.imgurl = url

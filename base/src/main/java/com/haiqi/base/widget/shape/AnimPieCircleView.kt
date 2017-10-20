@@ -65,7 +65,7 @@ class AnimPieCircleView(ctx: Context,attrs: AttributeSet?): View(ctx,attrs){
 
     var colors:List<Int>? = null
 
-    val speed = 5f;
+    val speed = 5f
 
     fun setPies(list: MutableList<Pie>?){
         this.pieList = list

@@ -25,25 +25,24 @@ android {
         }
     }
 
-    /*sourceSets {
-        manifest.srcFile 'src/main/AndroidManifest.xml'
-    }*/
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
 
 }
 
 dependencies {
- /*   compile("com.jude:easyrecyclerview:$rootProject.easyRecyclerVersion") {
-        exclude module: 'support-v4'//根据组件名排除
-        exclude group: 'android.support.v4'//根据包名排除
-    }*/
-
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-
+    /*   compile("com.jude:easyrecyclerview:$rootProject.easyRecyclerVersion") {
+               exclude module: 'support-v4'//根据组件名排除
+               exclude group: 'android.support.v4'//根据包名排除
+           }*/
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support:recyclerview-v7:25.3.1'
-
     //网络库
     compile 'com.squareup.retrofit2:retrofit:+'
     compile 'com.squareup.retrofit2:converter-gson:+'
@@ -51,15 +50,12 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:+'
     compile 'io.reactivex.rxjava2:rxjava:+'
     compile 'io.reactivex.rxjava2:rxandroid:+'
-
     //ARouter
     compile 'com.alibaba:arouter-api:1+'
-//    kapt 'com.alibaba:arouter-compiler:1.0.3'
-
+    //    kapt 'com.alibaba:arouter-compiler:1.0.3'
     /* 集成kotlin*/
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "org.jetbrains.anko:anko-common:$anko_version"
-
     //阿里框架
     compile('com.alibaba.android:vlayout:1.0.6@aar') {
         transitive = true
@@ -67,31 +63,25 @@ dependencies {
     compile('com.alibaba.android:ultraviewpager:1.0.4@aar') {
         transitive = true
     }
-
     //下拉刷新库
     compile 'in.srain.cube:ultra-ptr:1.0.11'
     //友盟
     compile 'com.umeng.analytics:analytics:latest.integration'
-
-
     //图片加载库
     compile 'com.github.bumptech.glide:glide:4.0.0-RC0'
-//    annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0-RC0'
+    //    annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0-RC0'
     //Logger库
     compile 'com.orhanobut:logger:2.1.1'
     //Rx存储
-//    compile 'com.f2prateek.rx.preferences2:rx-preferences:2.0.0-RC3'
+    //    compile 'com.f2prateek.rx.preferences2:rx-preferences:2.0.0-RC3'
     //sqllite
-//    compile 'org.greenrobot:greendao:3.2.2' // add library
-
+    //    compile 'org.greenrobot:greendao:3.2.2' // add library
     //AndPermission 兼容android6.0权限问题
     compile 'com.yanzhenjie:permission:1.1.0'
     //rxlifecycle2
     compile 'com.trello.rxlifecycle2:rxlifecycle:+'
     compile 'com.trello.rxlifecycle2:rxlifecycle-android:2.0.1'
-//    compile 'com.trello.rxlifecycle2:rxlifecycle-components:2.0.1'
-
+    //    compile 'com.trello.rxlifecycle2:rxlifecycle-components:2.0.1'
     //recyclerview snaphelper
     compile 'com.github.rubensousa:gravitysnaphelper:1.3'
-
 }

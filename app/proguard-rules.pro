@@ -99,6 +99,10 @@
     @butterknife.* <methods>;
 }
 
+#ARouter
+-keep public class com.alibaba.android.arouter.routes.**{*;}
+-keep class * implements com.alibaba.android.arouter.facade.template.ISyringe{*;}
+
 #alipay
 
 #-libraryjars libs/alipaySDK-20150602.jar

@@ -1,5 +1,6 @@
 package com.haiqi.yx.entry
 
+import android.animation.ObjectAnimator
 import com.haiqi.base.common.fragment.DelegateFra
 import com.haiqi.yx.R
 

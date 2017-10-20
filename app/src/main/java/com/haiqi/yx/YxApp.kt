@@ -21,7 +21,6 @@ class YxApp: BaseApp(){
         }
         ARouter.init(this)
         initTBS()
-
     }
 
     /**

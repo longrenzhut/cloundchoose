@@ -1,7 +1,14 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
+
+kapt {
+    arguments {
+        arg("moduleName", project.getName())
+    }
+}
 android {
 
     compileSdkVersion rootProject.ext.android.compileSdkVersion
@@ -36,6 +43,7 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
+    kapt 'com.alibaba:arouter-compiler:1.0.3'
     compile 'jp.wasabeef:recyclerview-animators:2.2.0'
     compile project(':wechatsdk')
     compile project(':tencentsdk')
