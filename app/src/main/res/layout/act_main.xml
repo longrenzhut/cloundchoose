@@ -8,11 +8,29 @@
     android:layout_height="match_parent">
 
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_below="@+id/uiheader"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent">\
+
+        <com.haiqi.yx.entry.TestLayout
+            android:id="@+id/lly_test"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <com.haiqi.yx.entry.TestView
+                android:id="@+id/test"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+
+        </com.haiqi.yx.entry.TestLayout>
+
 
         <com.haiqi.base.widget.shape.ShapeView
             android:layout_width="@dimen/dp_60"

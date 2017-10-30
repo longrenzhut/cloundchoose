@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
 import android.util.DisplayMetrics
+import android.util.MutableBoolean
 import com.haiqi.base.common.application.BaseApp
 
 /**
@@ -63,6 +64,31 @@ object CommonUtil{
         }
 
         return 1
+    }
+
+    /**
+     * 将list 转换成 用逗号分开的 string
+     */
+    fun listToString(data: MutableList<String>?): String {
+
+        return listToString(data,",")
+    }
+
+    fun listToString(data: MutableList<String>?,splite: String): String {
+        if (data == null) {
+            return ""
+        }
+        val result = StringBuilder()
+        var flag = false
+        for (string in data) {
+            if (flag) {
+                result.append(splite) // 分隔符
+            } else {
+                flag = true
+            }
+            result.append(string)
+        }
+        return result.toString()
     }
 
 

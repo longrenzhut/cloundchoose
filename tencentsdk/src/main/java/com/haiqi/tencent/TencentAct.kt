@@ -22,7 +22,7 @@ class TencentAct: DelegateAct(){
 
 
     override fun initView() {
-        tv_test.RxClick(this){
+        tv_test.RxClick(this).subscribe{
             ARouter.getInstance().build("/test/xxx").navigation(this)
         }
     }

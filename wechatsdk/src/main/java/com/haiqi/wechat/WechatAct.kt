@@ -20,7 +20,7 @@ class WechatAct: DelegateAct(){
     }
 
     override fun initView() {
-        tv_test.RxClick(this){
+        tv_test.RxClick(this).subscribe{
             ARouter.getInstance().build("/tent/sss").navigation(this)
         }
 

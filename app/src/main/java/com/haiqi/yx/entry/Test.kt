@@ -10,7 +10,10 @@ import io.reactivex.Observable
  */
 class Test : View{
     constructor(ctx: Context) : super(ctx)
-    constructor(ctx: Context, attrs: AttributeSet) : super(ctx, attrs)
+    private var attrs: AttributeSet? =null
+    constructor(ctx: Context,attrs: AttributeSet) : super(ctx, attrs){
+        this.attrs = attrs
+    }
 
 
     init{

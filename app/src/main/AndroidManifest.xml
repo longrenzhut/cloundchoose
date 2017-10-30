@@ -35,6 +35,7 @@
         <activity android:name=".webviewx5.X5Act"/>
         <activity android:name=".entry.TestAct"/>
         <activity android:name=".entry.TestMDAct"/>
+        <activity android:name=".entry.TestAnimAct"/>
 
         <service android:name="com.haiqi.base.service.DownApkService"/>
 

@@ -11,6 +11,8 @@ import com.haiqi.base.utils.ObservableSet
 import com.trello.rxlifecycle2.android.ActivityEvent
 import com.trello.rxlifecycle2.android.FragmentEvent
 import io.reactivex.Observable
+import io.reactivex.ObservableEmitter
+import io.reactivex.ObservableOnSubscribe
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
@@ -87,17 +89,19 @@ RxCompoundButton.checkedChanges(checkBox2)
 
 
 
-inline fun View?.RxClick(act: AbsAct, crossinline onNext:()-> Unit){
+inline fun View?.RxClick(act: AbsAct): Observable<Int>{
     this?.let{
-        Observable.create(ViewClickOnSubscribe(it))
+       return Observable.create(ViewClickOnSubscribe(it))
                 .ObservableSet()
                 .compose(act.bindUntilEvent<Int>(ActivityEvent.DESTROY))
                 .throttleFirst(500, TimeUnit.MILLISECONDS)
-                .subscribe{
-                    onNext()
-                }
     }
+    return Observable.create(object : ObservableOnSubscribe<Int>{
+        override fun subscribe(e: ObservableEmitter<Int>) {
+        }
+    })
 }
+
 
 inline fun View?.RxClick(fra: DelegateFra, crossinline onNext:()-> Unit){
     this?.let{

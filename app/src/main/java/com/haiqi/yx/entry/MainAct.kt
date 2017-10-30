@@ -22,6 +22,8 @@ import io.reactivex.Observable
 import android.content.DialogInterface
 import android.content.Intent
 import android.support.v7.app.AlertDialog
+import android.view.MotionEvent
+import android.view.View
 import com.haiqi.base.service.ServiceMananger
 import com.haiqi.base.service.model.VersionModel
 import com.haiqi.base.utils.Mylogger
@@ -57,7 +59,23 @@ class MainAct: BaseAct<MainPt, IMain>(), IMain {
         setCommonHeader("云选")
         setUILoadLayout()
         requestData()
+        test.setOnClickListener{
+            showToast("我是testView")
+        }
 
+        lly_test.setOnTouchListener(object : View.OnTouchListener{
+            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+
+                ARouter.getInstance().build("/testanim/anim")
+                        .navigation(this@MainAct)
+
+                return true
+            }
+
+        })
+        lly_test.setOnClickListener{
+            ARouter.getInstance().build("/testanim/anim").navigation(this)
+        }
 //        loop@ for (i in 1..100) {
 //            for (j in 1..100) {
 //                if (j == 1) break@loop
@@ -84,10 +102,10 @@ class MainAct: BaseAct<MainPt, IMain>(), IMain {
 //            }
 //
 //        }).subscribe {  }
-        tv_input.RxClick(this){
+        tv_input.RxClick(this).subscribe{
 //            this@MainAct.startActivity(Intent(this@MainAct,TestMDAct::class.java))
 //            ARouter.getInstance().build("/tent/sss").navigation(this)
-            ARouter.getInstance().build("/tencent/x5").navigation(this)
+            ARouter.getInstance().build("/testanim/anim").navigation(this)
 //            ARouter.getInstance().build("/tent/testmd").navigation(this)
 //             this@MainAct.startActivity(Intent(this@MainAct
 //                     , X5Act::class.java))
