@@ -48,11 +48,11 @@ abstract class LazyDelegateFra<T>: DelegateFra(){
     }
 
     private var list:MutableList<T>? = null
-    private var isSuccess = false;
+    private var isSuccess = false
 
     fun setLazyData(list: MutableList<T>?){
-        this.list = list;
-        isSuccess = false;
+        this.list = list
+        isSuccess = false
     }
 
     /**

@@ -90,13 +90,13 @@ open class SuperRecyclerView(ctx: Context,attrs: AttributeSet?): RecyclerView(ct
             override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
 
             }
-        });
+        })
 
         mloadMoreAdapter.setOnItemClickListener(object : BaseAdapter.OnItemClickListener<Int> {
             override fun onItemClick(itemView: View, pos: Int, model: Int) {
                 if(mloadMoreAdapter.state == 2){
-                    mloadMoreAdapter.state = 1;
-                    isLoading = true;
+                    mloadMoreAdapter.state = 1
+                    isLoading = true
                     mloadMoreAdapter.notifyDataSetChanged()
                     loadMore(page)
                 }

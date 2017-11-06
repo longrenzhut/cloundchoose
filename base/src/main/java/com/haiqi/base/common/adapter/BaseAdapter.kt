@@ -117,7 +117,7 @@ abstract class BaseAdapter<T>: DelegateAdapter.Adapter<BaseViewHolder>(){
 
     override fun getItemCount(): Int {
 
-        return datas.size;
+        return datas.size
     }
 
 
