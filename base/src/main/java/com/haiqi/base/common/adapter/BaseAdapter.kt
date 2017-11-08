@@ -14,12 +14,12 @@ abstract class BaseAdapter<T>: DelegateAdapter.Adapter<BaseViewHolder>(){
 
 
 
-    public interface OnItemClickListener<T> {
-        fun onItemClick(itemView: View, pos: Int, model: T)
+    interface OnItemClickListener<T> {
+        fun onItemClick(itemView: View, pos: Int, model: T?)
     }
 
     interface OnItemLongClickListener<T> {
-        fun onItemLongClick(itemView: View, pos: Int, model: T)
+        fun onItemLongClick(itemView: View, pos: Int, model: T?)
     }
 
     private var mClickListener: OnItemClickListener<T>? = null
@@ -35,36 +35,38 @@ abstract class BaseAdapter<T>: DelegateAdapter.Adapter<BaseViewHolder>(){
 
 
 
-    private val datas by lazy { mutableListOf<T>() }
+    private val datas by lazy(LazyThreadSafetyMode.NONE) { mutableListOf<T?>() }
 
 
-    fun getData(): MutableList<T> = datas
+    fun getData(): MutableList<T?> = datas
 
-    fun getItem(position: Int): T{
-        return datas.get(position)
+    fun getItem(position: Int): T?{
+        return datas[position]
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): BaseViewHolder? {
 
-        val holder = BaseViewHolder(
+        return BaseViewHolder(
                 LayoutInflater.from(parent?.context).inflate(inflaterItemLayout(viewType), parent, false))
-
-        return holder
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder?, position: Int) {
 
-        holder!!.itemView.setOnClickListener(getOnClickListener(position))
-        holder.itemView.setOnLongClickListener(getOnLongClickListener(position))
-
-        bindData(holder,position,datas[position])
-
+        holder?.let{
+            with(it){
+                itemView.setOnClickListener(getOnClickListener(position))
+                itemView.setOnLongClickListener(getOnLongClickListener(position))
+            }
+        }
+        holder?.let{
+            bindData(it,position,datas[position])
+        }
     }
 
     fun notifyItems(list: MutableList<T>?){
         val size = itemCount
         list?.let{
-            datas.addAll(it);
+            datas.addAll(it)
             notifyItemChanged(size, it.size)
         }
     }
@@ -75,9 +77,7 @@ abstract class BaseAdapter<T>: DelegateAdapter.Adapter<BaseViewHolder>(){
     }
 
     fun remove(item: T?){
-        item?.let {
-            datas.remove(it)
-        }
+        datas.remove(item)
     }
 
     fun remove(i: Int){
@@ -85,9 +85,7 @@ abstract class BaseAdapter<T>: DelegateAdapter.Adapter<BaseViewHolder>(){
     }
 
     fun add(item: T?){
-        item?.let {
-            datas.add(it)
-        }
+        datas.add(item)
     }
 
     fun addAll(list: MutableList<T>?){
@@ -98,7 +96,7 @@ abstract class BaseAdapter<T>: DelegateAdapter.Adapter<BaseViewHolder>(){
 
     fun notifyItem(item: T?){
         item?.let {
-            datas.add(it);
+            datas.add(it)
         }
         notifyItemChanged(itemCount - 1)
     }
@@ -114,6 +112,15 @@ abstract class BaseAdapter<T>: DelegateAdapter.Adapter<BaseViewHolder>(){
         notifyItemRemoved(index)
     }
 
+    fun notifyRemoveItems(list: MutableList<T?>?){
+        list?.let {
+            it.forEach {
+                remove(it)
+            }
+            notifyDataSetChanged()
+        }
+    }
+
 
     override fun getItemCount(): Int {
 
@@ -123,32 +130,31 @@ abstract class BaseAdapter<T>: DelegateAdapter.Adapter<BaseViewHolder>(){
 
     abstract fun inflaterItemLayout(viewType: Int): Int
 
-    abstract fun bindData(holder: BaseViewHolder, position: Int, model: T)
+    abstract fun bindData(holder: BaseViewHolder, position: Int, model: T?)
 
 
-    abstract fun onItemClickListener(itemView: View, pos: Int, model: T)
+    abstract fun onItemClickListener(itemView: View, pos: Int, model: T?)
 
-    open fun onItemLongClickListener(itemView: View, pos: Int, model: T) {
+    open fun onItemLongClickListener(itemView: View, pos: Int, model: T?) {
 
     }
 
-    fun getOnClickListener(position: Int): View.OnClickListener {
+    private fun getOnClickListener(position: Int): View.OnClickListener {
         return View.OnClickListener { v ->
-            if(null != mClickListener)
-                mClickListener?.onItemClick(v, position, datas[position])
-            else
-                onItemClickListener(v, position,datas[position])
+            mClickListener?.let{
+                it.onItemClick(v, position, datas[position])
+            } ?:
+                    onItemClickListener(v, position,datas[position])
         }
     }
 
-    fun getOnLongClickListener(position: Int): View.OnLongClickListener {
-        return View.OnLongClickListener { v ->
-            if(mLongClickListener != null) {
-                mLongClickListener?.onItemLongClick(v, position, datas[position])
-            }
-            else{
-                onItemLongClickListener(v, position, datas[position])
-            }
+    private fun getOnLongClickListener(position: Int): View.OnLongClickListener {
+        return View.OnLongClickListener {v->
+
+            mLongClickListener?.let{
+                it.onItemLongClick(v, position, datas[position])
+            }?:
+                    onItemLongClickListener(v, position, datas[position])
             true
         }
     }

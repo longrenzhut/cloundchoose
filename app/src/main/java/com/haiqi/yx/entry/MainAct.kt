@@ -43,9 +43,7 @@ class MainAct: BaseAct<MainPt, IMain>(), IMain {
 
     override fun getPresenter(): MainPt {
         setSwipeBackNoEnable()
-        val pt = MainPt()
-        pt.attach(this)
-        return pt
+        return MainPt().attach(this)
     }
 
 

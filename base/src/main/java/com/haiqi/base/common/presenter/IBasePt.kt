@@ -2,6 +2,7 @@ package com.haiqi.base.common.presenter
 
 import com.haiqi.base.common.activity.DelegateAct
 import com.haiqi.base.common.fragment.DelegateFra
+import com.haiqi.base.common.listener.IBaseView
 
 /**
  * Created by zhtuao on 2017/8/3.

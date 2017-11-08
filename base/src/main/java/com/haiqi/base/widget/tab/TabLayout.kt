@@ -138,7 +138,7 @@ class TabLayout(ctx: Context,attrs: AttributeSet?): LinearLayout(ctx,attrs){
 
             vp.adapter.count
             mAdapter.clear()
-            mAdapter.notifyItems(mVpAdapter.list)
+            mAdapter.notifyItems(mVpAdapter.getDatas())
 
             vp.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
                 override fun onPageScrollStateChanged(state: Int) {
@@ -160,7 +160,7 @@ class TabLayout(ctx: Context,attrs: AttributeSet?): LinearLayout(ctx,attrs){
 
             })
             mAdapter.setOnItemClickListener(object : BaseAdapter.OnItemClickListener<FraModel<String>> {
-                override fun onItemClick(itemView: View, pos: Int, model: FraModel<String>) {
+                override fun onItemClick(itemView: View, pos: Int, model: FraModel<String>?) {
                     vp.currentItem = pos
                 }
             })
@@ -198,17 +198,17 @@ class TabLayout(ctx: Context,attrs: AttributeSet?): LinearLayout(ctx,attrs){
             return BaseViewHolder(tv)
         }
 
-        override fun bindData(holder: BaseViewHolder, position: Int, model: FraModel<T>) {
+        override fun bindData(holder: BaseViewHolder, position: Int, model: FraModel<T>?) {
             val mTvName = holder.itemView as TextView
             if(index == position)
                 mTvName.setTextColor(selectedcolor)
             else{
                 mTvName.setTextColor(color)
             }
-            mTvName.text = model.name
+            mTvName.text = model?.name ?: ""
         }
 
-        override fun onItemClickListener(itemView: View, pos: Int, model: FraModel<T>) {
+        override fun onItemClickListener(itemView: View, pos: Int, model: FraModel<T>?) {
 
         }
 

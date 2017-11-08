@@ -103,9 +103,9 @@ open class AbsAct: RxAppCompatActivity(){
 
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
         if (ev.action == MotionEvent.ACTION_DOWN) {
-            val view = currentFocus;
+            val view = currentFocus
             if (isHideInput(view, ev)) {
-                hideSoftInput(view.windowToken)
+                hideSoftInput(view?.windowToken)
             }
         }
         return super.dispatchTouchEvent(ev)
@@ -114,7 +114,7 @@ open class AbsAct: RxAppCompatActivity(){
     /**
      * 判定是否需要隐藏
      */
-    fun  isHideInput(v: View?, ev: MotionEvent): Boolean {
+    private fun isHideInput(v: View?, ev: MotionEvent): Boolean {
         if (v != null && (v is EditText)) {
             val l = intArrayOf(0, 0)
             v.getLocationInWindow(l)
@@ -122,12 +122,10 @@ open class AbsAct: RxAppCompatActivity(){
             val top = l[1]
             val bottom = top + v.getHeight()
             val right = left + v.getWidth()
-            if (ev.x > left && ev.x < right && ev.y > top
-                    && ev.y < bottom) {
+            if (ev.x > left && ev.x < right && ev.y > top && ev.y < bottom) {
                 return false
-            } else {
-                return true
             }
+            return true
         }
         return false
     }
@@ -137,9 +135,9 @@ open class AbsAct: RxAppCompatActivity(){
      */
     fun  hideSoftInput(token: IBinder?) {
         if (token != null) {
-            val manager: InputMethodManager =  getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager;
+            val manager: InputMethodManager =  getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             manager.hideSoftInputFromWindow(token,
-                    InputMethodManager.HIDE_NOT_ALWAYS);
+                    InputMethodManager.HIDE_NOT_ALWAYS)
         }
     }
 

@@ -20,8 +20,8 @@ class TextChangeOnSubscribe(val view: TextView): ObservableOnSubscribe<String> {
     override fun subscribe(e: ObservableEmitter<String>) {
         view.addTextChangedListener(object : TextWatcher{
             override fun afterTextChanged(s: Editable?) {
-
-                e.onNext(s.toString())
+                if(!e.isDisposed)
+                    e.onNext(s.toString())
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {

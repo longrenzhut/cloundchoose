@@ -79,7 +79,7 @@ open class SuperRecyclerView(ctx: Context,attrs: AttributeSet?): RecyclerView(ct
                 if(lastVisiblePosition == adapters.itemCount - 1){
                     if(mloadMoreAdapter.state == 1){
                         if(!isLoading){
-                            isLoading = true;
+                            isLoading = true
                             loadMore(++page)
                         }
                     }
@@ -93,7 +93,7 @@ open class SuperRecyclerView(ctx: Context,attrs: AttributeSet?): RecyclerView(ct
         })
 
         mloadMoreAdapter.setOnItemClickListener(object : BaseAdapter.OnItemClickListener<Int> {
-            override fun onItemClick(itemView: View, pos: Int, model: Int) {
+            override fun onItemClick(itemView: View, pos: Int, model: Int?) {
                 if(mloadMoreAdapter.state == 2){
                     mloadMoreAdapter.state = 1
                     isLoading = true

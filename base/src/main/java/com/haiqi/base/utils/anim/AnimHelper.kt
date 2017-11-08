@@ -62,14 +62,14 @@ class AnimHelper(val onAnimEnd: (()-> Unit)? = null,val OnAnimStart: (()-> Unit)
     class ViewWrapper(val target: View,val onAniming: ((Int)-> Unit)? = null) {
 
         fun getWidth(): Int {
-            return target.getLayoutParams().width;
+            return target.getLayoutParams().width
         }
 
         fun setWidth(width: Int) {
             onAniming?.let{
                 it(width)
             }
-            target.layoutParams.width = width;
+            target.layoutParams.width = width
             target.requestLayout()
         }
     }
@@ -86,7 +86,7 @@ class AnimHelper(val onAnimEnd: (()-> Unit)? = null,val OnAnimStart: (()-> Unit)
 
 
     fun startAnim(start: Float, end: Float,duration: Long = 1000, onAniming: ((Float)-> Unit)? = null,delay: Long = 10) {
-        val animator = ObjectAnimator.ofFloat(start, end);
+        val animator = ObjectAnimator.ofFloat(start, end)
         animator.addUpdateListener(object : ValueAnimator.AnimatorUpdateListener {
             override fun onAnimationUpdate(animation: ValueAnimator?) {
                 onAniming?.let{
@@ -96,10 +96,10 @@ class AnimHelper(val onAnimEnd: (()-> Unit)? = null,val OnAnimStart: (()-> Unit)
                 }
             }
 
-        });
-        animator.startDelay = delay;   //设置延迟开始
-        animator.duration = duration;
-        animator.interpolator = LinearInterpolator();   //动画匀速
+        })
+        animator.startDelay = delay   //设置延迟开始
+        animator.duration = duration
+        animator.interpolator = LinearInterpolator()   //动画匀速
         animator.start()
     }
 

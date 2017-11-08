@@ -6,7 +6,7 @@ import com.haiqi.base.common.presenter.BasePt
 /**
  * Created by Administrator on 2017/8/3.
  */
-abstract  class BaseFra<T: BasePt<H>,H: IBaseView>: DelegateFra() {
+abstract  class BaseFra<out T: BasePt<H>,H: IBaseView>: DelegateFra() {
 
     internal val mPrsenter by lazy{
         getPresenter()

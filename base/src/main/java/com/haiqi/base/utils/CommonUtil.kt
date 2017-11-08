@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.util.DisplayMetrics
 import android.util.MutableBoolean
+import com.haiqi.base.common.adapter.viewpager.FraModel
 import com.haiqi.base.common.application.BaseApp
 
 /**
@@ -69,12 +70,12 @@ object CommonUtil{
     /**
      * 将list 转换成 用逗号分开的 string
      */
-    fun listToString(data: MutableList<String>?): String {
+    fun listToString(data: List<String>?): String {
 
         return listToString(data,",")
     }
 
-    fun listToString(data: MutableList<String>?,splite: String): String {
+    fun listToString(data: List<String>?,splite: String): String {
         if (data == null) {
             return ""
         }
@@ -91,5 +92,16 @@ object CommonUtil{
         return result.toString()
     }
 
+
+    /**
+     * 模型装换成
+     */
+    fun listModelToString(data: MutableList<FraModel<String>>?){
+        val list: List<String>? = data?.map {
+            it.name
+        }
+        listToString(list)
+
+    }
 
 }

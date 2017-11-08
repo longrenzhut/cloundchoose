@@ -21,28 +21,28 @@ class LoadMoreAdapter: BaseAdapter<Int>(){
         return R.layout.adapter_load_more
     }
 
-    override fun bindData(holder: BaseViewHolder, position: Int, model: Int) {
+    override fun bindData(holder: BaseViewHolder, position: Int, model: Int?) {
        val mPbLoading = holder.getView<ProgressBar>(R.id.pb_loading)
        val mTvLoading = holder.getView<TextView>(R.id.tv_loading)
 
         when(state){
             1->{
                 mPbLoading.setVisible(1)
-                mTvLoading.text = "";
+                mTvLoading.text = ""
             }
             2->{
                 mPbLoading.setVisible(-1)
-                mTvLoading.text = "网络有点问题,点击重新加载";
+                mTvLoading.text = "网络有点问题,点击重新加载"
             }
             else->{
                 mPbLoading.setVisible(-1)
-                mTvLoading.text = "已全部加载完毕";
+                mTvLoading.text = "已全部加载完毕"
             }
 
         }
     }
 
-    override fun onItemClickListener(itemView: View, pos: Int, model: Int) {
+    override fun onItemClickListener(itemView: View, pos: Int, model: Int?) {
     }
 
 }

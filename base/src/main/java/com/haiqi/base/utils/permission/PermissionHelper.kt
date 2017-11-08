@@ -26,6 +26,7 @@ object PermissionHelper{
                list.add(it)
            }
        }
+
         if(!AndPermission.hasPermission(ctx,list)){
             AndPermission.with(ctx)
                     .requestCode(code)

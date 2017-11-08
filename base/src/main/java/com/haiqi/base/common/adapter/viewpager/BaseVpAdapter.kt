@@ -7,20 +7,22 @@ import android.support.v4.app.FragmentPagerAdapter
 /**
  * Created by zhutao on 2017/8/10.
  */
-class BaseVpAdapter<T>(fm: FragmentManager, val list: MutableList<FraModel<T>>): FragmentPagerAdapter(fm) {
+class BaseVpAdapter<T>(fm: FragmentManager, 
+                       private val data: MutableList<FraModel<T>>)
+    : FragmentPagerAdapter(fm) {
 
 
-    fun getDatas(): MutableList<FraModel<T>> = list
+    fun getDatas(): MutableList<FraModel<T>> = data
 
     override fun getPageTitle(position: Int): CharSequence {
-        return list.get(position).name
+        return data[position].name
     }
 
     override fun getItem(position: Int): Fragment {
-        return list.get(position).fra
+        return data[position].fra
     }
 
     override fun getCount(): Int {
-        return list.size
+        return data.size
     }
 }

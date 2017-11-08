@@ -2,6 +2,7 @@ package com.haiqi.base.common.presenter
 
 import com.haiqi.base.common.activity.DelegateAct
 import com.haiqi.base.common.fragment.DelegateFra
+import com.haiqi.base.common.listener.IBaseView
 import com.haiqi.base.http.BaseSubscriber
 import com.haiqi.base.http.Params
 import com.haiqi.base.http.ReqCallBack
@@ -17,18 +18,18 @@ import java.lang.ref.WeakReference
  */
 
 
-open class BasePt<T>: IBasePt<T>{
+open class BasePt<T: IBaseView>: IBasePt<T>{
 
 
     private var mActivity: DelegateAct? = null
 
 
+    var mView: WeakReference<T>? = null
 
-    private var mView: WeakReference<T>? = null
 
-
-    fun attach(t: T){
+    fun <H: BasePt<T>> attach(t: T) : H {
         mView =  WeakReference<T>(t)
+        return this as H
     }
 
     private var mFrament: DelegateFra? = null
@@ -41,10 +42,9 @@ open class BasePt<T>: IBasePt<T>{
         this.mFrament = mFra
     }
 
-
-
     override fun detachView() {
         mView?.clear()
+        mView = null
     }
 
     override fun getView(): T? {
@@ -77,10 +77,11 @@ open class BasePt<T>: IBasePt<T>{
     fun request(observable: Observable<ResponseBody>,
                 observer: BaseSubscriber<ResponseBody>){
 
-        val event = if(null == mFrament)
-            mActivity!!.bindUntilEvent<ResponseBody>(ActivityEvent.DESTROY)
-        else
-            mFrament!!.bindUntilEvent<ResponseBody>(FragmentEvent.DESTROY)
+        val event = mFrament?.let{
+            it.bindUntilEvent<ResponseBody>(FragmentEvent.DESTROY)
+        } ?:
+            mActivity!!.bindUntilEvent(ActivityEvent.DESTROY)
+
         mActivity?.request(observable,observer,event)
     }
 

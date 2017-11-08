@@ -10,6 +10,7 @@ import android.view.WindowManager
 import android.widget.TextView
 import android.widget.Toast
 import com.haiqi.base.R
+import com.haiqi.base.common.adapter.viewpager.FraModel
 import com.haiqi.base.common.application.BaseApp
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -63,7 +64,7 @@ fun getField(toast: Any, fieldName: String): Any? {
             }
         }
     } catch (e: Exception) {
-        Log.d("UIToast", "Toast windowAnimations setting failed");
+        Log.d("UIToast", "Toast windowAnimations setting failed")
     }
     toast.view = view
     toast.show()
@@ -95,7 +96,7 @@ fun dip2px(value: Float):Float{
 }
 
 fun px2dip(value: Int) : Int{
-    return (value / CommonUtil.getScales() + 0.5f).toInt();
+    return (value / CommonUtil.getScales() + 0.5f).toInt()
 }
 
 
@@ -156,7 +157,7 @@ fun <E> MutableList<E>?.isEmpty(): Boolean{
     this?.let{
         return (it.toDouble()).double2Decimal()
     }
-    return 0.00;
+    return 0.00
 }
 
  fun String?.saveto2DecimalStr(): String =
@@ -181,13 +182,14 @@ fun <E> MutableList<E>?.isEmpty(): Boolean{
     }
 }
 
- fun TextView?.setTvColor(textcolor: Int){
-    if(0 == textcolor)
+ fun TextView?.setTvColor(color: Int){
+    if(0 == color)
         return
     this?.let{
-        it.setTextColor(getColor(textcolor))
+        it.setTextColor(getColor(color))
     }
 }
+
 
 /**
  * dp 设置字体大小
@@ -205,4 +207,13 @@ fun <E> MutableList<E>?.isEmpty(): Boolean{
         return it.size
     }
     return 0
+}
+
+/**
+ * 设置view 的背景颜色
+ */
+fun View?.setBgColor(color: Int){
+    this?.let{
+        it.setBackgroundColor(resources.getColor(color))
+    }
 }
