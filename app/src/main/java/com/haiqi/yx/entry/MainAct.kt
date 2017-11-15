@@ -67,6 +67,7 @@ class MainAct: BaseAct<MainPt, IMain>(), IMain {
                 ARouter.getInstance().build("/testanim/anim")
                         .navigation(this@MainAct)
 
+
                 return true
             }
 
@@ -103,7 +104,7 @@ class MainAct: BaseAct<MainPt, IMain>(), IMain {
         tv_input.RxClick(this).subscribe{
 //            this@MainAct.startActivity(Intent(this@MainAct,TestMDAct::class.java))
 //            ARouter.getInstance().build("/tent/sss").navigation(this)
-            ARouter.getInstance().build("/testanim/anim").navigation(this)
+            ARouter.getInstance().build("/tencent/x5").navigation(this)
 //            ARouter.getInstance().build("/tent/testmd").navigation(this)
 //             this@MainAct.startActivity(Intent(this@MainAct
 //                     , X5Act::class.java))
